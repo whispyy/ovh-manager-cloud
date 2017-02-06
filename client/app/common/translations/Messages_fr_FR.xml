@@ -153,7 +153,7 @@
    <translation id="payment_type_ideal" qtlid="139767">iDEAL</translation>
    <translation id="payment_type_mandat" qtlid="139780">Mandat cash</translation>
    <translation id="payment_type_multibanco" qtlid="139793">Multibanco</translation>
-   <translation id="payment_type_ovhAccount" qtlid="139806">Compte OVH</translation>
+   <translation id="payment_type_ovhAccount">Compte prépayé</translation>
    <translation id="payment_type_paymentMandate" qtlid="139819">Mandat administratif</translation>
    <translation id="payment_type_paypal" qtlid="98228">Paypal</translation>
    <translation id="payment_type_platnosci" qtlid="139832">Płatności</translation>
