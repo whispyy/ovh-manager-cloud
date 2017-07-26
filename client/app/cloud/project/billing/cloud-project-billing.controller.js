@@ -1,6 +1,11 @@
-"use strict";
+(() => {
+    "use strict";
+	class CloudProjectBillingCtrl {
+		constructor (FeatureAvailabilityService) {
+			this.FeatureAvailabilityService = FeatureAvailabilityService;
+		}
+	}
 
-angular.module("managerApp")
-  .controller("CloudProjectBillingCtrl", function () {
-
-  });
+	angular.module("managerApp")
+	  .controller("CloudProjectBillingCtrl", CloudProjectBillingCtrl);
+})();

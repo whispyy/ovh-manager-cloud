@@ -14,6 +14,30 @@
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
                 US: ["US"],
+            },
+            billingConsumption: {
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
+                US: ["US"],
+            },
+            billingHistory: {
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
+                US: ["US"],                
+            },
+            billingVouchers: {
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
+                US: ["US"],
+            },
+            billingQuota: {
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
+                US: ["US"],
+            },
+            billingRights: {
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
             }
         },
         PROJECT: {
@@ -77,7 +101,7 @@
         },
         VEEAM: {
             sidebarOrder: {
-                EU: ["FR"],
+                EU: [],
             }
         },
         DESKAAS: {

@@ -3,39 +3,44 @@
         <div class="cloud-compute-tabs-ctnr">
             <responsive-tabs>
                 <responsive-tab
+                    data-ng-if="CloudProjectBillingCtrl.FeatureAvailabilityService.hasFeature('SERVER','billingConsumption')"
                     class="cloud-compute-tabs-item"
-                    state="{{ :: 'iaas.pci-project.billing.consumption' }}"
-                    dropdown-title="{{ 'cpb_tab_consumption' | translate }}">
+                    data-state="{{ :: 'iaas.pci-project.billing.consumption' }}"
+                    data-dropdown-title="{{ 'cpb_tab_consumption' | translate }}">
                     <i class="ovh-font ovh-font-receipt"></i>
-                    <span translate="cpb_tab_consumption"></span>
+                    <span data-translate="cpb_tab_consumption"></span>
                 </responsive-tab>
                 <responsive-tab
+                    data-ng-if="CloudProjectBillingCtrl.FeatureAvailabilityService.hasFeature('SERVER','billingHistory')"
                     class="cloud-compute-tabs-item"
-                    state="{{ :: 'iaas.pci-project.billing.history.details' }}"
-                    dropdown-title="{{ 'cpb_tab_history' | translate }}">
+                    data-state="{{ :: 'iaas.pci-project.billing.history.details' }}"
+                    data-dropdown-title="{{ 'cpb_tab_history' | translate }}">
                     <i class="ovh-font ovh-font-clock"></i>
-                    <span translate="cpb_tab_history"></span>
+                    <span data-translate="cpb_tab_history"></span>
                 </responsive-tab>
                 <responsive-tab
+                    data-ng-if="CloudProjectBillingCtrl.FeatureAvailabilityService.hasFeature('SERVER','billingVouchers')"
                     class="cloud-compute-tabs-item"
-                    state="{{::'iaas.pci-project.billing.vouchers'}}"
-                    dropdown-title="{{'cpb_tab_vouchers'|translate}}">
+                    data-state="{{::'iaas.pci-project.billing.vouchers'}}"
+                    data-dropdown-title="{{'cpb_tab_vouchers'|translate}}">
                     <i class="ovh-font ovh-font-ticket"></i>
-                    <span translate="cpb_tab_vouchers"></span>
+                    <span data-translate="cpb_tab_vouchers"></span>
                 </responsive-tab>
                 <responsive-tab
+                    data-ng-if="CloudProjectBillingCtrl.FeatureAvailabilityService.hasFeature('SERVER','billingQuota')"
                     class="cloud-compute-tabs-item"
-                    state="{{::'iaas.pci-project.billing.quota'}}"
-                    dropdown-title="{{'cpb_tab_quota'|translate}}">
+                    data-state="{{::'iaas.pci-project.billing.quota'}}"
+                    data-dropdown-title="{{'cpb_tab_quota'|translate}}">
                     <i class="ovh-font ovh-font-pieChart"></i>
-                    <span translate="cpb_tab_quota"></span>
+                    <span data-translate="cpb_tab_quota"></span>
                 </responsive-tab>
                 <responsive-tab
+                    data-ng-if="CloudProjectBillingCtrl.FeatureAvailabilityService.hasFeature('SERVER','billingRights')"
                     class="cloud-compute-tabs-item"
-                    state="{{::'iaas.pci-project.billing.rights'}}"
-                    dropdown-title="{{'cpb_tab_rights'|translate}}">
+                    data-state="{{::'iaas.pci-project.billing.rights'}}"
+                    data-dropdown-title="{{'cpb_tab_rights'|translate}}">
                     <i class="ovh-font ovh-font-hosting"></i>
-                    <span translate="cpb_tab_rights"></span>
+                    <span data-translate="cpb_tab_rights"></span>
                 </responsive-tab>
                 <responsive-tab-more class="cloud-compute-tabs-item">
                     <i class="fa fa-plus"></i>
