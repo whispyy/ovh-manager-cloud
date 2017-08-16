@@ -1,7 +1,7 @@
 "use strict";
 
 angular.module("managerApp").controller("CloudProjectAddCtrl",
-    function ($q, $state, $translate, $rootScope, Toast, REDIRECT_URLS, FeatureAvailabilityService, Cloud, User, Vrack, $window, UserPaymentMeanCreditCard,
+    function ($q, $state, $translate, $rootScope, atInternet, Toast, REDIRECT_URLS, Cloud, User, Vrack, $window, UserPaymentMeanCreditCard,
               SidebarMenu, CloudProjectSidebar) {
 
         var self = this;
@@ -49,8 +49,13 @@ angular.module("managerApp").controller("CloudProjectAddCtrl",
 
             // If contracts: accept them
             if (self.model.contractsAccepted && self.data.agreements.length) {
+                atInternet.trackClick({
+                    name: "AccountActivation",
+                    type: "action"
+                });
+
                 var queueContracts = [];
-                angular.forEach(self.data.agreements, function (contract) {
+                _.forEach(self.data.agreements, function (contract) {
                     queueContracts.push(User.Agreements().Lexi().accept({
                         id: contract.id
                     }, {}).$promise.then(function () {
@@ -128,7 +133,7 @@ angular.module("managerApp").controller("CloudProjectAddCtrl",
                     }
                 });
 
-            })["catch"](function (err) {
+            }).catch(function (err) {
                 if (err && err.status) {
                     switch (err.status) {
                     case 400:
@@ -141,7 +146,7 @@ angular.module("managerApp").controller("CloudProjectAddCtrl",
                         return Toast.error($translate.instant("cpa_error") + (err.data && err.data.message ? " (" + err.data.message + ")" : ""));
                     }
                 }
-            })["finally"](function () {
+            }).finally(function () {
                 self.loaders.creating = false;
             });
         };
@@ -208,15 +213,13 @@ angular.module("managerApp").controller("CloudProjectAddCtrl",
 
         function init () {
             self.loaders.init = true;
-            // Redirect US to onboarding
-            if (FeatureAvailabilityService.hasFeature("PROJECT","expressOrder")) {
-                $state.go("iaas.pci-project-onboarding", { location : "replace" });
-                return;
-            }
-            initContracts().then(initProject)["catch"](function (err) {
+            initContracts()
+            .then(initProject)
+            .catch(function (err) {
                 self.unknownError = true;
                 Toast.error($translate.instant("cpa_error") + (err && err.data && err.data.message ? " (" + err.data.message + ")" : ""));
-            })["finally"](function () {
+            })
+            .finally(function () {
                 self.loaders.init = false;
             });
         }
