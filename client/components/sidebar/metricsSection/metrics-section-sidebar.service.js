@@ -19,7 +19,7 @@ class MetricsSectionSidebarService {
             id: "mainMetricsItem",
             title: this.$translate.instant("cloud_sidebar_section_metrics"),
             icon: "graph",
-            loadOnState: "dbaas",
+            loadOnState: "dbaas.metrics",
             allowSubItems: true,
             allowSearch: this.SidebarService.getNumberOfServicesPerSection(services) > this.SIDEBAR_MIN_ITEM_FOR_SEARCH
         });

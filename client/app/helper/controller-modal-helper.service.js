@@ -36,6 +36,32 @@ class ControllerModalHelper {
             }
         });
     }
+
+    showNameChangeModal (config = {}) {
+        return this.showModal({
+            modalConfig: {
+                templateUrl: "app/ui-components/modal/name-change-modal/name-change-modal.html",
+                controller: "NameChangeModalCtrl",
+                controllerAs: "$ctrl",
+                resolve: {
+                    params: () => config
+                }
+            }
+        });
+    }
+
+    showDeleteModal (config = {}) {
+        return this.showModal({
+            modalConfig: {
+                templateUrl: "app/ui-components/modal/delete-modal/delete-modal.html",
+                controller: "DeleteModalCtrl",
+                controllerAs: "$ctrl",
+                resolve: {
+                    params: () => config
+                }
+            }
+        });
+    }
 }
 
 angular.module("managerApp").service("ControllerModalHelper", ControllerModalHelper);

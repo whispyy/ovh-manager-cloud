@@ -1,0 +1,19 @@
+<section class="cui-page__content">
+    <cui-page-content-title text="'cloud_db_user_add' | translate"></cui-page-content-title>
+    <form novalidate name="$ctrl.form">
+        <div class="cui-form-actions">
+            <cui-loader data-ng-show="$ctrl.saving"></cui-loader>
+            <div data-ng-hide="$ctrl.saving">
+                <cui-submit-button data-text="'common_modify' | translate"
+                    data-ng-if="$ctrl.edition"
+                    data-on-click="$ctrl.update()"></cui-submit-button>
+                <cui-submit-button data-text="'common_add' | translate"
+                    data-ng-if="!$ctrl.edition"
+                    data-on-click="$ctrl.add()"></cui-submit-button>
+                <a class="oui-button oui-button_secondary"
+                    data-translate="common_cancel"
+                    data-ui-sref="{{ $ctrl.previousState.sref }}"></a>
+            </div>
+        </div>
+    </form>
+</section>

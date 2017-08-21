@@ -1,0 +1,26 @@
+<cui-page-header data-title-text="$ctrl.menuItem.title || $ctrl.serviceName" 
+                 data-subtitle-text="$ctrl.menuItem.title === $ctrl.serviceName ? '' : $ctrl.serviceName">
+    <cui-tabs>
+        <cui-tab data-text="'cloud_db_tab_home' | translate"
+                data-state="dbaas.cloud-db.detail.home" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_graph' | translate"
+                data-state="dbaas.cloud-db.detail.graph" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_database' | translate"
+                data-state="dbaas.cloud-db.detail.database" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_user' | translate"
+                data-state="dbaas.cloud-db.detail.user" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_backup' | translate"
+                data-state="dbaas.cloud-db.detail.backup" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_network' | translate"
+                data-state="dbaas.cloud-db.detail.network" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+        <cui-tab data-text="'cloud_db_tab_log' | translate"
+                data-state="dbaas.cloud-db.detail.log" 
+                data-state-params="{ serviceName: $ctrl.serviceName }"></cui-tab>
+    </cui-tabs>
+</cui-page-header>

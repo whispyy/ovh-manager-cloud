@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<translations>
+    <translation id="cloud_db_back_home">Retour à l'accueil</translation>
+
+    <translation id="cloud_db_tab_home">Accueil</translation>
+    <translation id="cloud_db_tab_graph">Graphiques</translation>
+    <translation id="cloud_db_tab_database">Base de données</translation>
+    <translation id="cloud_db_tab_user">Utilisateurs</translation>
+    <translation id="cloud_db_tab_backup">Sauvegardes</translation>
+    <translation id="cloud_db_tab_network">Réseaux</translation>
+    <translation id="cloud_db_tab_log">Logs</translation>
+
+    <translation id="cloud_db_database_delete_success_message">La base de données a été supprimée avec succès.</translation>
+    <translation id="cloud_db_user_delete_success_message">L'utilisateur a été supprimé avec succès.</translation>
+
+    <translation id="cloud_db_home_status_loading_error">Erreur lors du chargement de la section Statut.</translation>
+    <translation id="cloud_db_home_access_loading_error">Erreur lors du chargement de la section Accès.</translation>
+    <translation id="cloud_db_home_configuration_loading_error">Erreur lors du chargement de la section Configuration.</translation>
+    <translation id="cloud_db_home_subscription_loading_error">Erreur lors du chargement de la section Abonnement.</translation>
+
+    <translation id="cloud_db_database_loading_error">Erreur lors du chargement de la base de données.</translation>
+    <translation id="cloud_db_database_list_loading_error">Erreur lors du chargement des base de données.</translation>
+    <translation id="cloud_db_database_add_sucess">La base de données a été ajoutée avec succès.</translation>
+    <translation id="cloud_db_database_add_error">Erreur lors de l'ajout de la base de données.</translation>
+    <translation id="cloud_db_database_update_sucess">La base de données a été modifiée avec succès.</translation>
+    <translation id="cloud_db_database_update_error">Erreur lors de la modification de la base de données.</translation>
+    <translation id="cloud_db_database_delete_error">Erreur lors de la suppression de la base de données.</translation>
+
+    <translation id="cloud_db_user_loading_error">Erreur lors du chargement de l'utilisateur.</translation>
+    <translation id="cloud_db_user_list_loading_error">Erreur lors du chargement des utilisateurs.</translation>
+    <translation id="cloud_db_user_add_sucess">L'utilisateur a été ajouté avec succès.</translation>
+    <translation id="cloud_db_user_add_error">Erreur lors de l'ajout de l'utilisateur.</translation>
+    <translation id="cloud_db_user_update_sucess">L'utilisateur a été modifié avec succès.</translation>
+    <translation id="cloud_db_user_update_error">Erreur lors de la modification de l'utilisateur.</translation>
+    <translation id="cloud_db_user_delete_error">Erreur lors de la suppression de l'utilisateur.</translation>
+
+    <translation id="cloud_db_backup_loading_error">Erreur lors du chargement de la sauvegarde.</translation>
+    <translation id="cloud_db_backup_list_loading_error">Erreur lors du chargement des sauvegardes.</translation>
+    <translation id="cloud_db_backup_add_sucess">La sauvegarde a été créée avec succès.</translation>
+    <translation id="cloud_db_backup_add_error">Erreur lors de la création de la sauvegarde.</translation>
+    <translation id="cloud_db_backup_restore_sucess">La sauvegarde a été restaurée avec succès.</translation>
+    <translation id="cloud_db_backup_restore_error">Erreur lors de la restauration de la sauvegarde.</translation>
+    <translation id="cloud_db_backup_delete_error">Erreur lors de la suppression de la sauvegarde.</translation>
+
+    <translation id="cloud_db_network_loading_error">Erreur lors du chargement du réseau.</translation>
+    <translation id="cloud_db_network_list_loading_error">Erreur lors du chargement des réseaux.</translation>
+    <translation id="cloud_db_network_add_sucess">Le réseau a été ajouté avec succès.</translation>
+    <translation id="cloud_db_network_add_error">Erreur lors de l'ajout du réseau.</translation>
+    <translation id="cloud_db_network_update_sucess">Le réseau a été modifié avec succès.</translation>
+    <translation id="cloud_db_network_update_error">Erreur lors de la modification du réseau.</translation>
+    <translation id="cloud_db_network_delete_error">Erreur lors de la suppression du réseau.</translation>
+
+    <translation id="cloud_db_name_change_error">Erreur lors du changement de nom.</translation>
+</translations>

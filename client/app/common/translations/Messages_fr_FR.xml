@@ -35,7 +35,7 @@
    <translation id="common_menu_telecom" qtlid="135827">Télécom</translation>
    <translation id="common_menu_gamma" qtlid="232401">Sunrise</translation>
    <translation id="common_menu_v3" qtlid="135931">Ancienne interface client</translation>
-<translation id="common_menu_portal" translate="none">MyOVH</translation>
+   <translation id="common_menu_portal" translate="none">MyOVH</translation>
    <translation id="common_menu_partners" qtlid="383512">Partenaires</translation>
    <translation id="common_menu_billing" qtlid="32950">Facturation</translation>
    <translation id="common_menu_renew" qtlid="229658">Mes services</translation>
@@ -63,6 +63,9 @@
 
    <translation id="common_modify" qtlid="37875">Modifier</translation>
    <translation id="common_add" qtlid="37923">Ajouter</translation>
+   <translation id="common_save">Sauvegarder</translation>
+   <translation id="common_delete">Supprimer</translation>
+   <translation id="common_select">Sélectionner</translation>
    <translation id="common_remove" qtlid="323093">Retirer</translation>
    <translation id="edit" qtlid="37875">Modifier</translation>
    <translation id="delete" qtlid="2414">Supprimer</translation>
@@ -476,6 +479,10 @@
    <translation id="common_tile_subscription_autorenew">Renouvellement automatique</translation>
    <translation id="common_tile_subscription_contact">Contacts</translation>
    <translation id="common_tile_subscription_creation_date">Date de création</translation>
+
+   <translation id="common_name_change_modal_title">Modifier le nom</translation>
+   <translation id="common_name_change_modal_service_name_label">Nom par défaut</translation>
+   <translation id="common_name_change_modal_display_name_label">Nom personnalisé</translation>
 
    <translation id="common_preview_see">Voir l'aperçu</translation>
 
