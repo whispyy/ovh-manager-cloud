@@ -13,7 +13,7 @@ angular.module("managerApp")
     .config(["$provide", function ($provide) {
         "use strict";
 
-        $provide.decorator("atInternet", ($delegate, $q, $cookies, CloudProject, User, TRACKING) => {
+        $provide.decorator("atInternet", ($delegate, $q, $cookies, Cloud, User, TRACKING) => {
             const delegateTrackPage = $delegate.trackPage;
             let isDefaultConfigurationSet = false;
             let trackPageRequestArgumentStack = [];
@@ -28,7 +28,7 @@ angular.module("managerApp")
                 }
             };
 
-            CloudProject.Lexi().get().$promise.then(projects => {
+            Cloud.Project().Lexi().query().$promise.then(projects => {
                 projectNumber = `[CloudProjects-${projects.length}]`;
             }).catch(err => $q.reject(err));
 
