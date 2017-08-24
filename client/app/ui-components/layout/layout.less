@@ -3,6 +3,7 @@
 .cui-page {
   #oui > .base-font();
   @message-selector: oui-message;
+  @tabs-selector: cui-tabs-container;
 
   .@{message-selector} {
     margin: @spacing-top @spacing-side_l 0 @spacing-side_l;
@@ -13,13 +14,31 @@
   }
 
   &__header {
-    padding: @spacing-top @spacing-side_l;
+    padding: @spacing-top 0 @spacing-top 0;
     font-family: Source Sans Pro;
     font-weight: 300;
     background-color: @page-header-background-color;
     font-size: @default-font-size;
 
+    .@{tabs-selector} {
+      margin: 0 @spacing-side_l -@spacing-top @spacing-side_l;
+
+      @media (max-width: 1280px) {
+        margin: 0 @spacing-side_s -@spacing-top @spacing-side_s;
+      }
+
+      @media (max-width: 800px) {
+        margin: 0 0 -@spacing-top 0;
+      }
+    }
+
     &__title {
+      padding: 0 @spacing-side_l 0 @spacing-side_l;
+
+      @media (max-width: 1280px) {
+        padding: 0 @spacing-side_s 0 @spacing-side_s;
+      }
+
       margin: 0;
       color: @oui-color-sapphire;
 
@@ -28,16 +47,18 @@
     }
 
     &__subtitle {
+      padding: 0 @spacing-side_l 0 @spacing-side_l;
+
+      @media (max-width: 1280px) {
+        padding: 0 @spacing-side_s 0 @spacing-side_s;
+      }
+
       margin-top: 0;
       margin-bottom: 0;
 
       color: @oui-color-dusty;
       font-size: inherit;
       font-weight: 300;
-    }
-
-    @media (max-width: 1280px) {
-      padding: @spacing-top @spacing-side_s;
     }
   }
 

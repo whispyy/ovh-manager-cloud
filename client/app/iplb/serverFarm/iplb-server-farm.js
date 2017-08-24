@@ -4,11 +4,6 @@ angular.module("managerApp").config($stateProvider => {
             url: "/serverfarm",
             redirectTo: "network.iplb.detail.server-farm.home",
             views: {
-                iplbHeader: {
-                    templateUrl: "app/iplb/header/iplb-dashboard-header.html",
-                    controller: "IpLoadBalancerDashboardHeaderCtrl",
-                    controllerAs: "ctrl"
-                },
                 iplbContent: {
                     template: '<div ui-view="iplbFarms"><div>'
                 }

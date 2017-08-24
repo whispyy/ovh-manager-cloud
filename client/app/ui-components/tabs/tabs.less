@@ -1,8 +1,31 @@
+.cui-tabs-container {
+    position: relative;
+
+    &__button {
+        position: absolute; bottom: 0; top: 0;
+
+        &-right {
+            right: 0;
+        }
+
+        &-left {
+            left: 0;
+        }
+    }
+}
+
 .cui-tabs {
     list-style: none;
     display: flex;
-    margin: 16px 0 -32px 0;
+    margin: 16px 0 0 0;
     padding: 0;
+    white-space: nowrap;
+    overflow-x: auto;
+
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &__tab {
         position: relative;
@@ -29,7 +52,7 @@
             bottom: 0;
         }
 
-        &_active {
+        &-active {
             a {
                 color: #113f6d;
                 font-weight: 700;
@@ -41,7 +64,7 @@
             }
         }
 
-        &_animate {
+        &-animate {
             &:after {
                 width: 100%;
                 left: 0;

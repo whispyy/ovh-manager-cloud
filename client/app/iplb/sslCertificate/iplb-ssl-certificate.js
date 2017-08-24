@@ -1,17 +1,10 @@
 (() => {
-    const iplbHeader = {
-        templateUrl: "app/iplb/header/iplb-dashboard-header.html",
-        controller: "IpLoadBalancerDashboardHeaderCtrl",
-        controllerAs: "ctrl"
-    };
-
     angular.module("managerApp").config($stateProvider => {
         $stateProvider
             .state("network.iplb.detail.ssl-certificate", {
                 url: "/sslCertificate",
                 redirectTo: "network.iplb.detail.ssl-certificate.home",
                 views: {
-                    iplbHeader,
                     iplbContent: {
                         template: '<div ui-view="iplbSslCertificate"><div>'
                     }
