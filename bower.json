@@ -43,7 +43,7 @@
     "validator-js": "~3.37.0",
     "ovh-ui-kit": "^1.0.0-alpha.11",
     "ovh-angular-a-disabled": "^0.1.1",
-    "ng-at-internet": "^2.2.1",
+    "ng-at-internet": "https://github.com/whispyy/ng-at-internet.git#feature/UXMCLOUD-1566-1",
     "at-internet-ui-router-plugin": "^0.1.2",
     "ovh-angular-toggleclass": "^1.2.1",
     "ovh-jquery-ui-draggable-ng": "^0.0.5",
