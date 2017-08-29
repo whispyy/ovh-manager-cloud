@@ -71,7 +71,7 @@
     "ovh-angular-swimming-poll": "^3.0.1",
     "ovh-angular-doc-url": "^0.0.6",
     "ovh-angular-module-status": "^0.0.2",
-    "ovh-angular-otrs": "^1.1.0",
+    "ovh-angular-otrs": "git+https://github.com/ovh-ux/ovh-angular-otrs.git#feature/UXMGLOBAL-1507_UXMGLOBAL_1755",
     "ovh-api-services": "^1.1.5"
   },
   "devDependencies": {
