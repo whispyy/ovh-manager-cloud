@@ -85,7 +85,7 @@
                             data-ng-disabled="CloudOfferCtrl.canStartProject()"
                             data-ng-click="CloudOfferCtrl.startProject()">
                         <span data-translate="cloud_offer_start"></span>
-                        <spinner data-ng-if="CloudOfferCtrl.loaders.start"></spinner>
+                        <spinner data-ng-if="CloudOfferCtrl.loaders.start || CloudOfferCtrl.loaders.agreements || CloudOfferCtrl.loaders.locale"></spinner>
                     </button>
                 </form>
             </div>

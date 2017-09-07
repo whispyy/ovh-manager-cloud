@@ -86,6 +86,19 @@ angular.module("managerApp")
             PT: "https://www.ovh.pt/suporte/"
         },
         website_order: {
+            cloud_resell_eu: {
+                CZ: projectName => `https://www.ovh.cz/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                DE: projectName => `https://www.ovh.de/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                ES: projectName => `https://www.ovh.es/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                FI: projectName => `https://www.ovh-hosting.fi/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                FR: projectName => `https://www.ovh.com/fr/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                GB: projectName => `https://www.ovh.co.uk/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                IT: projectName => `https://www.ovh.it/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                LT: projectName => `https://www.ovh.lt/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                NL: projectName => `https://www.ovh.nl/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                PL: projectName => `https://www.ovh.pl/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                PT: projectName => `https://www.ovh.pt/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`
+            },
             vps: {
                 CZ: "https://www.ovh.cz/vps/",
                 DE: "https://www.ovh.de/virtual_server/",

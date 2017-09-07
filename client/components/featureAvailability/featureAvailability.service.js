@@ -6,64 +6,66 @@
         VPS: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
-                CA: allCanadianSubsidiaries,
+                CA: allCanadianSubsidiaries
             }
         },
         SERVER: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             }
         },
         PROJECT: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             },
             expressOrder: {
-                US : ["US"],
+                EU: allEuropeanSubsidiaries,
+                CA: allCanadianSubsidiaries,
+                US: ["US"]
             }
         },
-        DEDICATED_CLOUD:{
+        DEDICATED_CLOUD: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             }
         },
         ip: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             }
         },
         iplb: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             }
         },
         VRACK: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
-                CA: allCanadianSubsidiaries,
+                CA: allCanadianSubsidiaries
             }
         },
         licence: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
                 CA: allCanadianSubsidiaries,
-                US: ["US"],
+                US: ["US"]
             }
         },
         NASHA: {
             sidebarOrder: {
                 EU: allEuropeanSubsidiaries,
-                CA: allCanadianSubsidiaries,
+                CA: allCanadianSubsidiaries
             }
         },
         METRICS: {
@@ -80,7 +82,7 @@
         },
         VEEAM: {
             sidebarOrder: {
-                EU: ["FR"],
+                EU: ["FR"]
             }
         },
         DESKAAS: {
@@ -104,19 +106,16 @@
         }
 
         hasFeature (product, feature, locale = this.locale) {
-            if (!_.has(featuresAvailability, [product, feature, this.TARGET ])) {
+            if (!_.has(featuresAvailability, [product, feature, this.TARGET])) {
                 return false;
             }
             return _.indexOf(featuresAvailability[product][feature][this.TARGET], locale) !== -1;
         }
 
         hasFeaturePromise (product, feature) {
-            var self = this;
-            return this.localePromise.then(function (locale) {
-                return self.hasFeature(product, feature, locale);
-            })
+            return this.localePromise.then(locale => this.hasFeature(product, feature, locale));
         }
-
     }
+
     angular.module("managerApp").service("FeatureAvailabilityService", FeatureAvailabilityService);
 })();

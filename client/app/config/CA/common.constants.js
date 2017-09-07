@@ -60,6 +60,13 @@ angular.module("managerApp")
             WS: "https://www.ovh.com/ca/en/support/"
         },
         website_order: {
+            cloud_resell_eu: {
+                AU: projectName => `https://ca.ovh.com/au/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                CA: projectName => `https://ca.ovh.com/en/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                QC: projectName => `https://ca.ovh.com/fr/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                WE: projectName => `https://us.ovh.com/us/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`,
+                WS: projectName => `https://us.ovh.com/es/order/express/#/new/express/review?products=~(~(planCode~'project-eu~productId~'cloud~quantity~1~duration~'P1M~configuration~(~(label~'description~values~(~'${encodeURIComponent(projectName)})))))`
+            },
             vps: {
                 AU: "https://www.ovh.com.au/vps/",
                 CA: "https://www.ovh.com/ca/en/vps/",
