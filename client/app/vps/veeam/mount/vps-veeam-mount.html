@@ -1,0 +1,23 @@
+<div data-ng-controller="VpsVeeamMountCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="mount"
+         data-wizard-title="i18n.vps_configuration_veeam_mount_title"
+		 data-wizard-title-icon="'icon-veeam-mount'"
+		 class="platforms">
+
+        <div data-wizard-step>
+            <span class="bold blue" data-ng-bind-html="tr('vps_configuration_veeam_mount_question', [vps.name])"></span>
+            <br/>
+            <br/>
+            <span data-i18n-static="vps_configuration_veeam_mount_informations"></span>
+            <br/>
+            <strong class="red" data-ng-show="attachedBackup" data-i18n-static="vps_configuration_veeam_mount_step1_warning_umount"></strong>
+            <div class="row-fluid" data-ng-if="loadingAttachedBackup">
+                <div class="span12 loader"></div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

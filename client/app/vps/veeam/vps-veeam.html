@@ -1,0 +1,124 @@
+<div data-ng-controller="VpsTabVeeamCtrl" class="span12">
+    <div data-ovh-alert='vps_veeam_alert'></div>
+
+    <div class="row-fluid" data-ng-show="!vps.hasVeeam">
+        <div class="span9">
+            <div class="alert">
+                <span class="fs11" data-i18n-static="vps_tab_VEEAM_dashboard_veeam_unavailable"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid" data-ng-show="loaders.veeamInfo">
+        <div class="span12 loader"></div>
+    </div>
+
+    <div class="row-fluid" data-ng-show="!loaders.veeamInfo && vps.hasVeeam && !veeamTab && veeamTab.state !== 'enabled'">
+        <div class="span9">
+            <div class="alert">
+                <span class="fs11" data-i18n-static="vps_tab_VEEAM_dashboard_not_activated"></span>
+                <br/>
+                <span data-ng-show="!vps.canOrder" class="fs11" data-i18n-static="vps_tab_VEEAM_dashboard_not_able_to_order"></span>
+            </div>
+        </div>
+        <div class="span3">
+            <button type="button" class="btn btn-block btn-action"
+                    data-ng-disabled="!vps.canOrder  || !vps.canOrderVeeamOptions"
+                data-ng-class="{ 'btn-large' : viewMode === 'simple', 'disabled': !vps.canOrder }"
+                    data-ng-click="setAction('veeam/order/vps-veeam-order')">
+                <i class="icon-veeam-order"></i>
+                <span data-i18n-static="vps_configuration_veeam_order_title_button"></span>
+            </button>
+        </div>
+    </div>
+	  <div class="row-fluid" data-ng-show="!loaders.veeamInfo && vps.hasVeeam && veeamTab">
+		<div class="span9">
+            <div data-ng-show="veeamTab.accessInfos">
+                <span data-i18n-static="vps_tab_VEEAM_dashboard_current_restore_point"></span>
+                <br/>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <dl>
+                            <dt data-i18n-static="vps_tab_VEEAM_dashboard_state"></dt>
+                            <dd class="label"
+                                data-ng-class="{'label-success': veeamTab.state === veeamStates.ENABLED, 'label-info': veeamTab.state !== veeamStates.ENABLED}"
+                                data-ng-bind="tr('vps_tab_VEEAM_dashboard_state_' + veeamTab.state)"></dd>
+
+                            <dt data-i18n-static="vps_tab_VEEAM_dashboard_current_restore_point_creationTime"></dt>
+                            <dd data-ng-bind="veeamTab.accessInfos.restorePoint|date:'short'"></dd>
+                        </dl>
+                    </div>
+                    <div class="span6" data-ng-if="veeamTab.accessInfos.access">
+                        <dl>
+                            <dt data-i18n-static="vps_tab_VEEAM_dashboard_access_smb"></dt>
+                            <dd data-ng-bind="veeamTab.accessInfos.access.smb"></dd>
+
+                            <dt data-i18n-static="vps_tab_VEEAM_dashboard_access_nfs"></dt>
+                            <dd data-ng-bind="veeamTab.accessInfos.access.nfs"></dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+            <div data-ng-hide="veeamTab.accessInfos.restorePoint">
+                <span data-ng-hide="veeamTab.isRestoring" data-i18n-static="vps_tab_VEEAM_dashboard_no_current_restore_point"></span>
+                <span class="label label-info" style="max-width: inherit;"
+                    data-ng-show="veeamTab.isRestoring"
+                    data-ng-bind-html="tr('vps_tab_VEEAM_dashboard_restoring')"></span>
+            </div>
+            <br/>
+
+            <table class="table pretty">
+                <thead>
+                    <tr>
+                        <th data-i18n-static="vps_tab_VEEAM_dashboard_table_header_date"></th>
+                        <th data-i18n-static="vps_tab_VEEAM_dashboard_table_header_restore"></th>
+                        <th data-i18n-static="vps_tab_VEEAM_dashboard_table_header_mount"></th>
+                    </tr>
+                </thead>
+
+                <tbody data-ng-show="loading">
+                    <tr>
+                        <td colspan="3"><div class="loader"></div></td>
+                    </tr>
+                </tbody>
+
+                <tbody data-ng-show="!loading">
+                    <tr data-ng-repeat="restorePoint in veeams">
+                        <td data-ng-bind="restorePoint | date: 'short'"></td>
+                        <td data-tooltip-placement="top" data-tooltip-append-to-body="true" data-tooltip="{{tr('vps_tab_VEEAM_dashboard_table_tooltip_restore')}}" class="center">
+                            <button class="btn-no-style" type="button" data-ng-click="restoreRestorePoint(restorePoint)" title="{{tr('vps_tab_VEEAM_dashboard_table_tooltip_restore')}}" data-ng-disabled="getPollingActivity() || veeamTab.state !== veeamStates.ENABLED">
+                                <i class="icon icon-vps-veeam-restore"></i>
+                            </button>
+                        </td>
+                        <td data-tooltip-placement="top" data-tooltip-append-to-body="true" data-tooltip="{{tr('vps_tab_VEEAM_dashboard_table_tooltip_mount')}}" class="center">
+                            <button class="btn-no-style" type="button" data-ng-click="mountRestorePoint(restorePoint)" title="{{tr('vps_tab_VEEAM_dashboard_table_tooltip_mount')}}" data-ng-disabled="getPollingActivity() || veeamTab.state !== veeamStates.ENABLED">
+                                <i class="icon icon-vps-veeam-mount"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table table-pretty"
+             data-pagination-front
+             data-items="veams"
+             data-paginated-items="restorePoints"
+             data-current-page="currentPage"
+             data-nb-pages="nbPages"
+             data-items-per-page="itemsPerPage"
+             data-on-transform-item-done="onTransformItemDone(items)"
+             data-page-placeholder="{{tr('pagination_page', [currentPage, nbPages])}}"
+             data-item-per-page-placeholder="{{tr('pagination_display')}}">
+            </div>
+
+        </div>
+
+		<div class="span3">
+        <button class="btn btn-block btn-action btn-progress" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('veeam/umount/vps-veeam-umount', veeamTab.accessInfos.restorePoint)" data-ng-show="veeamTab.accessInfos.restorePoint" data-ng-disabled="getPollingActivity() || veeamTab.state !== veeamStates.ENABLED">
+                <span data-ng-show="vpsPolling.removeVeeamBackup" class="btn-progress-bar" data-ng-style="{'right' : viewMode === 'expert' && 100 - vpsPollingProgress.removeVeeamBackup + '%' || '0', 'top' : viewMode == 'simple' && 100 - vpsPollingProgress.removeVeeamBackup + '%' || '0'}"></span>
+                <span data-ng-show="vpsPolling.removeVeeamBackup" class="btn-pourcent" data-ng-bind="vpsPollingProgress.removeVeeamBackup + '%'"></span>
+                <i data-ng-hide="viewMode === 'expert' && vpsPolling.removeVeeamBackup" class="icon-veeam-umount"></i>
+                <span data-i18n-static="vps_configuration_veeam_umount_title_button"></span>
+            </button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,34 @@
+<div data-ng-controller="VpsRebootRescueCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="rebootVps"
+         data-wizard-hide-cancel-button="loader.loading"
+         data-wizard-title="i18n.vps_configuration_reboot_rescue_title"
+		 data-wizard-title-icon="'icon-rescue-vps'"
+		 class="platforms">
+
+        <div data-wizard-step
+            data-wizard-step-on-load="loadCheck"
+            data-wizard-step-valid="!loader.loading && !loader.task">
+            <div class="row-fluid" data-ng-show="loader.loading || loader.task">
+                <div class="span12 loader"></div>
+                <p data-ng-hide="loader.task" class="center" data-i18n-static="vps_configuration_reboot_confirmation_rescue_loading"></p>
+            </div>
+            <div data-ng-hide="loader.loading || loader.task">
+                <p data-ng-show="vps.tools == 'KO'" class="red bold" data-i18n-static="vps_configuration_reboot_warning_tools"></p>
+                <p data-ng-show="vps.tools == 'KO'" class="red bold" data-i18n-static="vps_configuration_reboot_warning_tools2"></p>
+
+                <span class="bold blue" data-ng-bind-html="tr('vps_configuration_reboot_rescue_question', [vps.name])"></span>
+                <br/><br/>
+                <span data-i18n-static="vps_configuration_reboot_rescue_confirmation"></span>
+                <br/>
+                <br/>
+                <span class="fs11 italic" data-i18n-static="vps_configuration_reboot_rescue_information"></span>
+                <br/>
+                <span class="fs11 italic" data-ng-bind-html="i18n.vps_configuration_reboot_rescue_alert"></span>
+            </div>
+        </div>
+
+    </div>
+
+</div>

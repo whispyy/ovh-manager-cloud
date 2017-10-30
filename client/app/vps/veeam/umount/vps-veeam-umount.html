@@ -1,0 +1,21 @@
+<div data-ng-controller="VpsVeeamUmountCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="umount"
+         data-wizard-title="i18n.vps_configuration_veeam_umount_title"
+		 data-wizard-title-icon="'icon-veeam-umount'"
+		 class="platforms">
+
+        <div data-wizard-step>
+            <span class="bold blue" data-ng-bind-html="tr('vps_configuration_veeam_umount_step1_question', [vps.name])"></span>
+            <br/>
+            <dl>
+                <dt data-i18n-static="vps_configuration_veeam_umount_step1_creation"></dt>
+                <dd data-ng-bind="choosenRestorePoint|date:'short'"></dd>
+            </dl>
+        </div>
+
+
+
+    </div>
+</div>

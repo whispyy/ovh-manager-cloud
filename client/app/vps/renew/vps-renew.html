@@ -1,0 +1,21 @@
+<div data-ng-controller="VpsRenewCtrl">
+    <div data-wizard
+        data-wizard-on-cancel="resetAction"
+        data-wizard-on-finish="displayBC"
+        data-wizard-title="i18n.vps_configuration_renewvps_title"
+        data-wizard-title-icon="'icon-renew-vps'"
+        data-wizard-confirm-button-text="i18n.wizard_order"
+		class="platforms">
+
+        <div data-wizard-step>
+            <span data-ng-bind-html="tr('vps_configuration_renewvps_step1_question', [vps.name])"></span>
+            <br/><br/>
+            <span class="blue bold" data-i18n-static="vps_configuration_renewvps_step1_confirmation"></span>
+            <br/>
+            <span data-i18n-static="vps_configuration_renewvps_step1_information"></span>
+            <br/><br/>
+            <span class="fs11 lh11 italic" data-i18n-static="vps_configuration_renewvps_step1_alert"></span>
+        </div>
+
+    </div>
+</div>

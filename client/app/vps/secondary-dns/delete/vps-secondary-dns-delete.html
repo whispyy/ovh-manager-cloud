@@ -1,0 +1,14 @@
+<div data-ng-controller="VpsSecondaryDnsDomainDeleteCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="deleteSecondaryDnsDomain"
+         data-wizard-title="i18n.vps_configuration_secondarydns_delete_title"
+		 data-wizard-title-icon="'icon-delete-domain-on-dns'"
+		 class="platforms">
+
+        <div data-wizard-step>
+            <span class="blue bold" data-ng-bind-html="tr('vps_configuration_secondarydns_delete_step1_question', [entryToDelete])"></span>
+        </div>
+
+    </div>
+</div>

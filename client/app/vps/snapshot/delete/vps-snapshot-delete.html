@@ -1,0 +1,16 @@
+<div data-ng-controller="VpsSnapshotDeleteCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="deleteSnapshot"
+         data-wizard-title="i18n.vps_configuration_delete_snapshot_title"
+		 data-wizard-title-icon="'icon-delete-snapshot'"
+		 class="platforms">
+
+        <div data-wizard-step>
+            <span class="bold blue" data-ng-bind-html="tr('vps_configuration_delete_snapshot_step1_question', [vps.name])"></span>
+            <br/><br/>
+            <span class="red" data-i18n-static="vps_configuration_delete_snapshot_step1_confirmation"></span>
+        </div>
+
+    </div>
+</div>

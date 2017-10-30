@@ -1,0 +1,44 @@
+<div data-ng-controller="VpsKVMCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="closeConnection"
+         data-wizard-on-finish="closeConnection"
+         data-wizard-title="i18n.vps_configuration_kvm_title"
+         data-wizard-title-icon="'icon-kvm-vps'"
+         data-wizard-hide-confirm-button
+         data-wizard-hide-cancel-button
+         data-wizard-keydown-disabled
+         class="platforms vps-kvm"
+         data-ng-class="{'console': consoleUrl}">
+
+        <div data-wizard-step
+             data-wizard-step-on-load="loadKVM">
+            <kvm
+                 kvm-data="kvmData"
+                 data-ng-if="kvmData"
+                 data-ng-show="!loadingKvm">
+            </kvm>
+
+            <a  class="btn btn-icon pull-right"
+                data-ng-if="consoleUrl"
+                ng-href="{{consoleUrl}}"
+                target="_blank"
+            >
+                <span data-i18n-static="vps_configuration_kvm_new_window"></span> <i class="icon-fullscreen"></i>
+            </a>
+
+            <iframe id="consoleIframe" width="750" height="440" seamless
+                    autofocus="2000"
+                    data-ng-if="consoleUrl"
+                    data-ng-src="{{consoleUrl}}">
+            </iframe>
+
+            <div class="row-fluid" data-ng-show="loadingKvm">
+                <div class="span12 loader"></div>
+            </div>
+
+            <div data-ng-if="!vps.hasKVM" style="margin-top: 10px;">
+                <span class="blue bold" data-i18n-static="vps_configuration_kvm_cloud_mapping_keyboard_warning"></span>
+            </div>
+        </div>
+    </div>
+</div>

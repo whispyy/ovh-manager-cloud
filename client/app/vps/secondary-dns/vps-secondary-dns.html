@@ -1,0 +1,59 @@
+<div data-ng-controller="VpsTabSecondaryDnsCtrl">
+    <div class="row-fluid">
+        <div class="span9">
+            <div class="row-fluid">
+                <table class="table platform-table pretty">
+                    <thead>
+                    <tr>
+                        <th class="fs12" data-i18n-static="vps_tab_SECONDARY_DNS_table_domain"></th>
+                        <th class="fs12" data-i18n-static="vps_tab_SECONDARY_DNS_table_ip"></th>
+                        <th class="fs12" data-i18n-static="vps_tab_SECONDARY_DNS_table_date"></th>
+                        <th class="fs12" data-i18n-static="vps_tab_SECONDARY_DNS_table_dns"></th>
+                        <th class="fs12"></th>
+                    </tr>
+                    </thead>
+                    <tbody data-ng-show="secondaryDnsLoading">
+                    <tr data-ng-show="secondaryDnsLoading">
+                        <td colspan="5"><div class="loader"></div></td>
+                    </tr>
+                    </tbody>
+                    <tbody data-ng-show="secondaryDns.count == 0 && !secondaryDnsLoading">
+                    <tr>
+                        <td class="fs11" colspan="5"><span data-i18n-static="vps_tab_SECONDARY_DNS_table_empty"></span></td>
+                    </tr>
+                    </tbody>
+                    <tbody data-ng-show="secondaryDns.count > 0 && !secondaryDnsLoading">
+                    <tr data-ng-repeat="domain in secondaryDns.list.results track by $index" data-ng-class-odd="'odd'" data-ng-class-even="'even'">
+                        <td class="fs11">
+                            <span data-ng-bind="domain.domain"></span>
+                        </td>
+                        <td class="fs11">
+                            <span data-ng-bind="domain.ipMaster"></span>
+                        </td>
+                        <td class="fs11">
+                            <span>{{domain.creationDate|date:'shortDate'}}</span>
+                        </td>
+                        <td class="fs11">
+                            <span data-ng-bind="domain.dns"></span>
+                        </td>
+                        <td class="fs11" style="text-align: center;">
+                            <i data-ng-click="deleteSecondaryDnsDomain(domain.domain)" class="icon icon-trash"></i>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div data-pagination-server-side
+                     data-pagination-server-side-function="loadSecondaryDns"
+                     data-pagination-server-side-paginated-stuff="secondaryDns"
+                     data-pagination-server-side-table-loading="secondaryDnsLoading">
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <button class="btn btn-block btn-action"
+                    data-ng-click="setAction('secondary-dns/add/vps-secondary-dns-add')">
+                <i class="icon-add-domain-on-dns"></i><span data-i18n-static="vps_configuration_secondarydns_add_title_button"></span>
+            </button>
+        </div>
+    </div>
+</div>

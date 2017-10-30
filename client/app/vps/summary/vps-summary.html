@@ -1,0 +1,178 @@
+<div data-ng-controller="VpsTabSummaryCtrl" class="span12">
+    <div data-ovh-alert="vps_summary_alert"></div>
+
+    <div class="row-fluid pull-left" data-ng-show="summaryLoading">
+        <div class="span12 loader"></div>
+    </div>
+	  <div data-ng-show="summary" class="row-fluid">
+		    <div class="span9">
+			      <div class="row-fluid">
+                <div class="span6">
+					          <div class="row-fluid">
+						            <i class="icon-ip"></i>
+						            <strong class="lh24 fs18 grey" data-i18n-static="vps_tab_SUMMARY_ip_adress"></strong>
+					          </div>
+                    <div class="row-fluid tspace" data-ng-show="summary.canGetMoreIpv4">
+    					          <div class="row-fluid tspace">
+    						            <strong class="leftspace" data-i18n-static="common_ipv4"></strong>
+    						            <div data-available-ips
+    							               data-nb-ips="summary.ipsv4Count"
+    							               data-max-ips="summary.ipsv4Max">
+    						            </div>
+    					          </div>
+                    </div>
+                    <div class="row-fluid tspace" data-ng-show="!summary.canGetMoreIpv4">
+						            <div class="alert">
+                            <span class="fs11" data-i18n-static="vps_tab_SUMMARY_ip_not_available"></span>
+						            </div>
+                    </div>
+				        </div>
+				        <div class="span6">
+                    <div class="row-fluid">
+    					          <i class="icon-save"></i>
+    	                  <strong class="lh24 fs18 grey" data-i18n-static="vps_tab_SUMMARY_saves"></strong>
+                    </div>
+                    <div class="row-fluid tspace" data-ng-show="summary.snapshot.optionAvailable || summary.ftpBackup.optionAvailable">
+                        <div class="row-fluid tspace">
+                            <strong class="leftspace" data-i18n-static="vps_tab_SUMMARY_ftpbackup"></strong>
+
+                            <span data-ng-show="summary.ftpBackup.optionActivated">
+                                {{ ::tr("common_activated") }}
+                                <a data-ng-show="!summary.ftpBackup.optionReleased"
+                                   data-ng-click="setAction('option/cancel/vps-option-cancel', 'ftpbackup')">
+                                    ({{:: tr("vps_configuration_desactivate_option") }})</a>
+                                <span data-ng-show="summary.ftpBackup.optionReleased">({{:: tr("vps_configuration_option_released") }})</span>
+                            </span>
+
+                            <span data-ng-show="!summary.ftpBackup.optionActivated" data-i18n-static="common_desactivated"></span>
+                        </div>
+                        <div class="row-fluid tspace">
+                            <strong class="leftspace"  data-i18n-static="vps_tab_SUMMARY_snapshot"></strong>
+                            <span data-ng-show="summary.snapshot.optionActivated">
+                                {{ ::tr("common_activated") }} <a data-ng-show="!summary.snapshot.optionReleased" data-ng-click="setAction('option/cancel/vps-option-cancel', 'snapshot')">({{:: tr("vps_configuration_desactivate_option") }})</a>
+                                <span data-ng-show="summary.snapshot.optionReleased">({{:: tr("vps_configuration_option_released") }})</span>
+                            </span>
+
+                            <div class="leftspace" data-ng-show="summary.snapshot.optionActivated && summary.snapshot.creationDate">
+                                <span class="fs11 dgrey" data-i18n-static="vps_tab_SUMMARY_snapshot_creationdate"></span>
+                                <span class="fs11" data-ng-bind="summary.snapshot.creationDate|date:'short'"></span>
+                            </div>
+
+                            <span data-ng-show="!summary.snapshot.optionActivated" data-i18n-static="common_desactivated"></span>
+                        </div>
+                        <div class="row-fluid tspace">
+                            <strong class="leftspace" data-i18n-static="vps_tab_SUMMARY_veeam"></strong>
+
+                            <span data-ng-show="summary.veeamActivated">
+                                {{ ::tr("common_activated") }} <a data-ng-show="!summary.veeamReleased" data-ng-click="setAction('option/cancel/vps-option-cancel', summary.veeamType)">({{:: tr("vps_configuration_desactivate_option") }})</a>
+                                <span data-ng-show="summary.veeamReleased">({{:: tr("vps_configuration_option_released") }})</span>
+                            </span>
+
+                            <span data-ng-show="!summary.veeamActivated" data-i18n-static="common_desactivated"></span>
+                        </div>
+                    </div>
+                    <div class="row-fluid tspace" data-ng-show="!summary.snapshot.optionAvailable && !summary.ftpBackup.optionAvailable">
+						            <div class="alert">
+                            <span class="fs11" data-i18n-static="vps_tab_SUMMARY_backups_not_available"></span>
+						            </div>
+                    </div>
+				        </div>
+			      </div>
+
+			      <br/><br/>
+
+			      <div class="row-fluid">
+				        <div class="span6">
+					          <div class="row-fluid">
+						            <i class="icon-licences"></i>
+	                	    <strong class="lh24 fs18 grey" data-i18n-static="vps_tab_SUMMARY_license"></strong>
+					          </div>
+					          <div class="row-fluid tspace">
+						            <span class="label leftspace" data-i18n-static="common_TODO"></span>
+					          </div>
+				        </div>
+                        <div class="span6">
+                            <div class="row-fluid">
+                                <i class="icon icon-vps-additionnal-disk icon-blue"></i>
+                                <strong class="lh24 fs18 grey" data-i18n-static="vps_tab_SUMMARY_additional_disk"></strong>
+                            </div>
+                            <div class="row-fluid tspace" data-ng-if="additionalDisk.loading">
+                                <div class="span12 loader"></div>
+                            </div>
+                            <div data-ng-if="additionalDisk.eroor">
+                                <span data-i18n-static=vps_additional_disk_info_fail"></span>
+                            </div>
+                            <div class="row-fluid tspace" data-ng-if="!additionalDisk.loading && !additionalDisk.error">
+                                <span class="leftspace" data-ng-if="!additionalDisk.hasOption" data-i18n-static="vps_tab_additional_disk_not_available"></span>
+                                <span class="leftspace" data-ng-if="additionalDisk.hasOption">
+                                    {{ trpl('vps_tab_additional_disk_count', additionalDisk.count, [additionalDisk.count]) }} <a data-ng-show="additionalDisk.count > 0 && !additionalDisk.optionReleased" data-ng-click="setAction('option/cancel/vps-option-cancel', 'additionalDisk')">({{:: tr("vps_configuration_desactivate_option") }})</a>
+                                    <span data-ng-show="additionalDisk.optionReleased">({{:: tr("vps_configuration_option_released") }})</span>
+                                </span>
+                            </div>
+                        </div>
+			      </div>
+
+                <div class="row-fluid">
+                    <div class="span6" data-ng-if="summary.windowsActivated">
+                        <div class="row-fluid">
+                            <img src="images/license/WINDOWS_icon.png" />
+                            <strong class="lh24 fs18 grey" data-i18n-static="vps_tab_SUMMARY_windows"></strong>
+                        </div>
+
+                        <div class="row-fluid tspace">
+                            <strong class="leftspace" data-i18n-static="vps_tab_SUMMARY_windows_option"></strong>
+                              <span>
+                                  {{ ::tr("common_activated") }} <a data-ng-show="!summary.windowsReleased" data-ng-click="setAction('option/cancel/vps-option-cancel', 'windows')" >({{:: tr("vps_configuration_desactivate_option") }})</a>
+                                  <span data-ng-show="summary.windowsReleased">({{:: tr("vps_configuration_option_released") }})</span>
+                              </span>
+                        </div>
+                    </div>
+                </div>
+		    </div>
+		    <div class="span3">
+            <button class="btn btn-block btn-action" data-ng-class="{'btn-large' : viewMode === 'simple'}" data-ng-click="setAction('ftp-backup/activate/vps-ftp-backup-activate')" data-ng-show="vps.canOrder && !summary.ftpBackup.optionActivated && summary.ftpBackup.optionAvailable">
+                <i class="icon-activate-backup"></i>
+                <span data-i18n-static="vps_configuration_activate_ftpbackup_title_button"></span>
+            </button>
+            <button class="btn btn-block btn-action btn-progress" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('snapshot/take/vps-snapshot-take')" data-ng-show="summary.snapshot.optionActivated && !summary.snapshot.creationDate" 
+                        data-ng-disabled="getPollingActivity() || vps.netbootMode === 'RESCUE'" title="getRescueModeButtonTitle()">
+                <span data-ng-show="vpsPolling.createSnapshot" class="btn-progress-bar" data-ng-style="{'right' : viewMode === 'expert' && 100 - vpsPollingProgress.createSnapshot + '%' || '0', 'top' : viewMode === 'simple' && 100 - vpsPollingProgress.createSnapshot + '%' || '0'}"></span>
+                <span data-ng-show="vpsPolling.createSnapshot" class="btn-pourcent" data-ng-bind="vpsPollingProgress.createSnapshot + '%'"></span>
+                <i data-ng-hide="viewMode === 'expert' && vpsPolling.createSnapshot" class="icon-take-snapshot"></i>
+                <span data-i18n-static="vps_configuration_snapshot_take_title_button"></span>
+            </button>
+            <button class="btn btn-block btn-action btn-progress" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('snapshot/restore/vps-snapshot-restore')" data-ng-show="summary.snapshot.optionActivated && summary.snapshot.creationDate" data-ng-disabled="getPollingActivity()">
+                <span data-ng-show="vpsPolling.revertSnapshot" class="btn-progress-bar" data-ng-style="{'right' : viewMode === 'expert' && 100 - vpsPollingProgress.revertSnapshot + '%' || '0', 'top' : viewMode === 'simple' && 100 - vpsPollingProgress.revertSnapshot + '%' || '0'}"></span>
+                <span data-ng-show="vpsPolling.revertSnapshot" class="btn-pourcent" data-ng-bind="vpsPollingProgress.revertSnapshot + '%'"></span>
+                <i data-ng-hide="viewMode === 'expert' && vpsPolling.revertSnapshot" class="icon-restore-snapshot"></i>
+                <span data-i18n-static="vps_configuration_snapshot_restore_title_button"></span>
+            </button>
+            <button class="btn btn-block btn-action btn-progress" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('snapshot/delete/vps-snapshot-delete')" data-ng-show="summary.snapshot.optionActivated && summary.snapshot.creationDate" data-ng-disabled="getPollingActivity()">
+                <span data-ng-show="vpsPolling.deleteSnapshot" class="btn-progress-bar" data-ng-style="{'right' : viewMode === 'expert' && 100 - vpsPollingProgress.deleteSnapshot + '%' || '0', 'top' : viewMode === 'simple' && 100 - vpsPollingProgress.deleteSnapshot + '%' || '0'}"></span>
+                <span data-ng-show="vpsPolling.deleteSnapshot" class="btn-pourcent" data-ng-bind="vpsPollingProgress.deleteSnapshot + '%'"></span>
+                <i data-ng-hide="viewMode === 'expert' && vpsPolling.deleteSnapshot" class="icon-delete-snapshot"></i>
+                <span data-i18n-static="vps_configuration_delete_snapshot_title_button"></span>
+            </button>
+            <button class="btn btn-block btn-action" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('snapshot/activate/vps-snapshot-activate')" data-ng-show="vps.canOrder && !summary.snapshot.optionActivated && summary.snapshot.optionAvailable">
+                <i class="icon-activate-snapshot"></i>
+                <span data-i18n-static="vps_configuration_activate_snapshot_title_button"></span>
+            </button>
+
+            <button class="btn btn-block btn-action" data-ng-class="{'btn-large' : viewMode === 'simple'}"  data-ng-click="setAction('veeam/order/vps-veeam-order')" data-ng-show="vps.canOrder && vps.hasVeeam && summary && !summary.veeamActivated">
+                <i class="icon-veeam-order"></i>
+                <span data-i18n-static="vps_configuration_veeam_order_title_button"></span>
+            </button>
+
+            <button class="btn btn-block btn-action" 
+                    data-ng-click="setAction('windows-option/order/vps-windows-option-order')"
+                    data-ng-if="!summary.windowsActivated && getOptions('WINDOWS')">
+                <i class="icon-order"></i>
+                <span data-i18n-static="vps_order_windows_button_title"></span>
+            </button>
+            <button class="btn btn-block btn-action" data-ng-class="{'btn-large' : viewMode === 'simple'}" data-ng-click="setAction('additional-disk/order/vps-additional-disk-order')" data-ng-show="additionalDisk.hasOption && !additionalDisk.count">
+                    <i class="icon icon-vps-additionnal-disk"></i>
+                    <span data-i18n-static="vps_additional_disk_add_button"></span>
+                </button>
+		    </div>
+	  </div>
+</div>

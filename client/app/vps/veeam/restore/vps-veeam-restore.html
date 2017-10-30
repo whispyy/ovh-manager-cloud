@@ -1,0 +1,32 @@
+<div data-ng-controller="VpsVeeamRestoreCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="restore"
+         data-wizard-title="i18n.vps_configuration_veeam_restore_title"
+		 data-wizard-title-icon="'icon-veeam-restore'"
+		 class="platforms">
+
+        <div data-wizard-step>
+            <div data-ng-show="!attachedBackup && !loadingAttachedBackup">
+                <span class="bold blue" data-ng-bind-html="tr('vps_configuration_veeam_restore_step1_question', [vps.name])"></span>
+                <dl>
+                    <dt data-i18n-static="vps_configuration_veeam_restore_step1_creation"></dt>
+                    <dd data-ng-bind="choosenRestorePoint|date:'short'"></dd>
+                </dl>
+                <label class="checkbox">
+                    <input type="checkbox" data-ng-model="model.changePassword"/>
+                    {{i18n.vps_configuration_veeam_restore_step1_changepassword}}
+                </label>
+                <br/>
+                <br/>
+                <strong class="red" data-i18n-static="vps_configuration_veeam_restore_step1_warning"></strong>
+                <strong class="red" data-i18n-static="vps_configuration_veeam_restore_step1_warning_time"></strong>
+            </div>
+            <strong class="red" data-ng-show="attachedBackup" data-i18n-static="vps_configuration_veeam_restore_step1_warning_umount"></strong>
+            <div class="row-fluid" data-ng-if="loadingAttachedBackup">
+                <div class="span12 loader"></div>
+            </div>
+        </div>
+
+    </div>
+</div>

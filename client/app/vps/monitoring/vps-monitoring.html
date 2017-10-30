@@ -1,0 +1,43 @@
+<div data-ng-controller="VpsMonitoringCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="resetAction"
+         data-wizard-title="i18n.vps_configuration_monitoring_title"
+		 data-wizard-title-icon="'icon-monitoring'"
+		 data-wizard-hide-confirm-button
+         data-wizard-hide-cancel-button
+		 class="platforms">
+
+        <div data-wizard-step
+            data-wizard-step-on-load="loadMonitoring">
+            <div class="row-fluid" data-ng-show="!loadingMonitoring && monitoring">
+                <select class="full"
+                    data-ng-options="period as tr('vps_configuration_period_' + period) for period in monitoring.periods"
+                    data-ng-model="selectedPeriod.period"
+                    data-ng-change="loadMonitoring()"
+                >
+                </select>
+				<h5 class="blue center" data-i18n-static="vps_configuration_monitoring_usage_proc"></h5>
+            	<div data-little-chart data-chartdata="monitoring.cpu" id="monitoringCPULoadChart"></div>
+
+				<hr/>
+
+				<h5 class="blue center" data-i18n-static="vps_configuration_monitoring_usage_ram"></h5>
+            	<div data-little-chart data-chartdata="monitoring.ram" id="monitoringRAMLoadChart"></div>
+
+				<hr/>
+
+				<h5 class="blue center" data-i18n-static="vps_configuration_monitoring_usage_trafic"></h5>
+                <div id="monitoringTRAFICLoadChart"
+                     data-ng-if="chartOptionsMonitoring"
+                     data-ng-model="chartOptionsMonitoring"
+                     data-chart="chartOptionsMonitoring">
+                </div>
+            </div>
+
+            <div class="row-fluid" data-ng-show="loadingMonitoring">
+                <div class="span12 loader"></div>
+            </div>
+        </div>
+    </div>
+</div>

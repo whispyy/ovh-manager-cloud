@@ -1,0 +1,31 @@
+<div data-ng-controller="VpsSecondaryDnsDomainAddCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="addSecondaryDnsDomain"
+         data-wizard-title="i18n.vps_configuration_secondarydns_add_title"
+		 data-wizard-title-icon="'icon-add-domain-on-dns'"
+         data-wizard-bread-crumb
+		 class="platforms">
+
+        <div data-wizard-step
+            data-wizard-step-on-load="loadSecondaryDnsAvailable"
+            data-wizard-step-valid="domainToAdd.value">
+            <div class="row-fluid" data-ng-show="!secondaryDnsAvailable">
+                <div class="span12 loader"></div>
+            </div>
+            <div data-ng-show="secondaryDnsAvailable">
+                <span class="blue bold" data-ng-bind-html="tr('vps_configuration_secondarydns_add_step1_question', [secondaryDnsAvailable.hostname])"></span>
+                <br/>
+                <br/>
+                <span class="bold" data-i18n-static="vps_configuration_secondarydns_add_step1_domain"></span>
+                <br/>
+                <input style="width: 97%;" type="text" data-ng-model="domainToAdd.value">
+            </div>
+        </div>
+
+         <div data-wizard-step>
+            <span class="blue bold" data-ng-bind-html="tr('vps_configuration_secondarydns_add_step2_summary', [domainToAdd.value, secondaryDnsAvailable.hostname])"></span>
+         </div>
+
+    </div>
+</div>

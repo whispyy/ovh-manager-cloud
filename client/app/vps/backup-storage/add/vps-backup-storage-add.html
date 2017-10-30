@@ -1,0 +1,89 @@
+<div data-ng-controller="Module.vps.ctrl.BackupStorage.access.add">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="addBackupStorageAccess"
+         data-wizard-title="tr('vps_backup_storage_access_add')"
+         data-wizard-title-icon="'icon-backupftp-access'"
+         class="infrastructure">
+
+        <div data-wizard-step
+            data-wizard-step-valid="!loading && access.ip && (access.cifs || access.ftp || access.nfs)"
+            data-wizard-step-on-load="load">
+            <div class="row-fluid" data-ng-if="loading">
+                <div class="span12 loader"></div>
+            </div>
+            <div class="row-fluid" data-ng-if="!loading && access.listIp.length">
+                <span class="row-fluid blue bold" data-ng-bind="tr('vps_backup_storage_access_add_info')"></span>
+                <br />
+                <span class="row-fluid" data-ng-bind="tr('vps_backup_storage_access_add_info3')"></span>
+                <br />
+                <p class="center">
+                     <span data-i18n-static="vps_backup_storage_access_add_ip"></span>
+                     <select multiple data-ng-model="access.ip" data-ng-options="ip for ip in access.listIp"></select>
+                </p>
+                <table style="margin: auto;">
+                    <tr>
+                        <td style="width: 100px;">
+                            <span data-i18n-static="vps_backup_storage_access_add_authorization"></span>
+                        </td>
+                        <td style="width: 70px;">
+                            <input type="checkbox" style="vertical-align:top;" ng-model="access.cifs" id="accesscifs" />
+                            <label style="display:inline;" for="accesscifs" data-i18n-static="vps_tab_backup_storage_table_cifs"></label>
+                        </td>
+                        <td style="width: 70px;">
+                            <input type="checkbox" style="vertical-align:top;" ng-model="access.ftp" id="accessftp" />
+                            <label style="display:inline;" for="accessftp" data-i18n-static="vps_tab_backup_storage_table_ftp"></label>
+                        </td>
+                        <td style="width: 70px;">
+                            <input type="checkbox" style="vertical-align:top;" ng-model="access.nfs" id="accessnfs" />
+                            <label style="display:inline;" for="accessnfs" data-i18n-static="vps_tab_backup_storage_table_nfs"></label>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="row-fluid" data-ng-if="!loading && !access.listIp.length">
+                <span class="row-fluid red" data-ng-bind="tr('vps_backup_storage_access_add_no_block')"></span>
+            </div>
+        </div>
+        <div data-wizard-step
+            data-wizard-step-valid="!loading">
+            <div class="row-fluid" data-ng-show="loading">
+                <div class="span12 loader"></div>
+            </div>
+            <div class="row-fluid" data-ng-hide="loading">
+                <span class="row-fluid blue bold" data-ng-bind-html="tr('vps_backup_storage_access_add_info2')"></span>
+                <br />
+                <div style="float:left; width:50%;">
+                    <span class="row-fluid" data-ng-bind="tr('vps_backup_storage_access_add_info1')"></span>
+                    <ul>
+                        <li data-ng-repeat="block in access.ip">
+                            <span data-ng-bind="block"></span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="float:right; width:49%;">
+                    <span class="row-fluid" data-ng-bind-html="tr('vps_backup_storage_access_add_info4')"></span>
+                    <ul>
+                        <li>
+                            <span data-i18n-static="vps_tab_backup_storage_table_cifs"></span> :
+                            <span class="bold" data-ng-show="access.cifs" data-i18n-static="vps_backup_storage_access_add_allow"></span>
+                            <span class="bold" data-ng-hide="access.cifs" data-i18n-static="vps_backup_storage_access_add_deny"></span>
+                        </li>
+                        <li>
+                            <span data-i18n-static="vps_tab_backup_storage_table_ftp"></span> :
+                            <span class="bold" data-ng-show="access.ftp" data-i18n-static="vps_backup_storage_access_add_allow"></span>
+                            <span class="bold" data-ng-hide="access.ftp" data-i18n-static="vps_backup_storage_access_add_deny"></span>
+                        </li>
+                        <li>
+                            <span data-i18n-static="vps_tab_backup_storage_table_nfs"></span> :
+                            <span class="bold" data-ng-show="access.nfs" data-i18n-static="vps_backup_storage_access_add_allow"></span>
+                            <span class="bold" data-ng-hide="access.nfs" data-i18n-static="vps_backup_storage_access_add_deny"></span>
+                        </li>
+                    </ul>
+                <div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,186 @@
+<div data-ng-controller="Module.vps.ctrl.BackupStorage" id="vpsTabBackupStorage">
+    <div data-ovh-alert='vps_tab_backup_storage_alert'></div>
+
+    <div class="row-fluid" data-ng-show="loading.information">
+        <div class="span12 loader"></div>
+    </div>
+
+    <div class="row-fluid" data-ng-hide="loading.information || vps.hasBackup">
+        <div class="alert span9">
+            <span data-ng-show="vpsCloudUrl" data-i18n-static="vps_tab_SUMMARY_backups_not_available"></span>
+        </div>
+    </div>
+
+    <div class="row-fluid" data-ng-show="vps.hasBackup && backup.information && !backup.information.activated">
+        <div class="span9">
+            <div class="alert">
+                <span data-i18n-static="vps_tab_backup_not_activated"></span>
+                <br/>
+                <span data-ng-show="!vps.canOrder" data-i18n-static="vps_tab_backup_not_able_to_order"></span>
+            </div>
+        </div>
+        <div class="span3">
+            <button type="button" class="btn btn-block btn-action"
+                data-ng-disabled="!vps.canOrder"
+                data-ng-class="{ 'btn-large' : viewMode == 'simple', 'disabled': !vps.canOrder }"
+                    data-ng-click="setAction('ftp-backup/activate/vps-ftp-backup-activate')">
+                <i class="icon-activate-backup"></i>
+                <span class="fs11" data-i18n-static="vps_configuration_activate_ftpbackup_title"></span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row-fluid" data-ng-show="vps.hasBackup && backup.information && backup.information.activated">
+        <div class="span9">
+
+            <div data-ng-hide="loading.information">
+                <div class="row-fluid">
+                    <div class="span2 bold">{{i18n.vps_tab_backup_storage_name}}</div>
+                    <div class="span10" data-ng-bind="backup.information.name"></div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span2 bold">{{i18n.vps_tab_backup_storage_login}}</div>
+                    <div class="span10" data-ng-bind="backup.information.login"></div>
+                </div>
+
+                <div class="row-fluid">
+                    <div class="span2 bold">{{i18n.vps_tab_backup_storage_usage}}</div>
+                    <div class="span10">
+                        <div class="progress"
+                             data-ng-class="{'progress-success' : backup.information.usage.value < 51, 'progress-warning' : backup.information.usage.value > 50 && backup.information.usage.value < 81, 'progress-danger' : backup.information.usage.value > 80 }"
+                             style="width:250px; float: left;">
+                            <div class="bar" data-ng-style="{'width': backup.information.usage.value + '%'}"></div>
+                        </div>
+                        <div style="margin-left: 10px; float: left;">
+                            <span data-ng-bind="backup.use"></span>
+                            <span data-ng-bind="tr('unit_size_'+ backup.information.quota.unit)"></span> /
+                            <span data-ng-bind="backup.information.quota.value"></span>
+                            <span data-ng-bind="tr('unit_size_'+ backup.information.quota.unit)"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="top-space">
+                <table class="table pretty">
+                    <thead>
+                        <tr>
+                            <th data-i18n-static="vps_tab_backup_storage_table_ip"></th>
+                            <th class="center" data-i18n-static="vps_tab_backup_storage_table_cifs"></th>
+                            <th class="center" data-i18n-static="vps_tab_backup_storage_table_ftp"></th>
+                            <th class="center" data-i18n-static="vps_tab_backup_storage_table_nfs"></th>
+                            <th class="center" data-i18n-static="vps_tab_backup_storage_table_status"></th>
+                            <th class="center" colspan="2">
+                                <button class="btn btn-block btn-icon btn-inline" data-ng-click="refreshTab()">
+                                    <i class="icon-refresh icon-white"></i>
+                                </button>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody data-ng-show="loading.tab">
+                        <tr>
+                            <td colspan="7"><div class="loader"></div></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody data-ng-show="!loading.tab && backup.tab.list.results.length == 0">
+                        <tr>
+                            <td class="center" colspan="7" data-ng-bind="i18n.vps_tab_backup_storage_table_empty"></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody data-ng-hide="loading.tab">
+                        <tr data-ng-repeat="backupStorage in backup.tab.list.results">
+                            <td><span data-ng-bind="backupStorage.ipBlock"></span></td>
+
+                            <td class="center">
+                                <span data-ng-click="backupStorage.isApplied && setBackupCurrentEdit(backupStorage, 'cifs')"
+                                      data-ng-hide="backupStorage == backup.editBack"
+                                      data-ng-class="{'icon-ok': backupStorage.cifs==true,
+                                        'icon-ban-circle' : backupStorage.cifs==false }"
+                                      style="cursor:pointer;"></span>
+                                <input data-ng-show="backupStorage == backup.editBack"
+                                       type="checkbox"
+                                       ng-model="backup.edit.cifs" />
+                            </td>
+                            <td class="center">
+                                <span data-ng-click="backupStorage.isApplied && setBackupCurrentEdit(backupStorage, 'ftp')"
+                                      data-ng-hide="backupStorage == backup.editBack"
+                                      data-ng-class="{'icon-ok': backupStorage.ftp==true,
+                                        'icon-ban-circle' : backupStorage.ftp==false }"
+                                      style="cursor:pointer;"></span>
+                                <input data-ng-show="backupStorage == backup.editBack"
+                                       type="checkbox"
+                                       ng-model="backup.edit.ftp" />
+                            </td>
+                            <td class="center">
+                                <span data-ng-click="backupStorage.isApplied && setBackupCurrentEdit(backupStorage, 'nfs')"
+                                      data-ng-hide="backupStorage == backup.editBack"
+                                      data-ng-class="{'icon-ok': backupStorage.nfs==true,
+                                        'icon-ban-circle' : backupStorage.nfs==false }"
+                                      style="cursor:pointer;"></span>
+                                <input data-ng-show="backupStorage == backup.editBack"
+                                       type="checkbox"
+                                       ng-model="backup.edit.nfs" />
+                            </td>
+                            <td class="center">
+                                <span data-ng-show="backupStorage.isApplied" class="badge badge-success" data-i18n-static="vps_tab_backup_storage_table_ip_enable"></span>
+                                <span data-ng-hide="backupStorage.isApplied" class="badge badge-important" data-i18n-static="vps_tab_backup_storage_table_ip_disable"></span>
+                            </td>
+                            <td class="center" style="width:25px;">
+                                <div data-ng-show="backupStorage != backup.editBack && !disable.deleteFtp && backupStorage.isApplied">
+                                    <button class="btn btn-block btn-icon btn-inline" data-ng-click="setBackupCurrentEdit(backupStorage)" data-tooltip="{{i18n.vps_tab_backup_storage_table_ip_edit}}">
+                                         <i class="icon-pencil"></i>
+                                    </button>
+                                </div>
+                                <div data-ng-show="backupStorage == backup.editBack && !loading.Edit && backupStorage.isApplied">
+                                    <button class="btn btn-block btn-icon btn-inline" data-ng-click="cancelBackupCurrentEdit()" data-tooltip="{{i18n.vps_tab_backup_storage_table_ip_cancel}}">
+                                        <i class="icon-remove"></i>
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="center" style="width:25px;">
+                                <div data-ng-show="backupStorage != backup.editBack && !disable.deleteFtp && backupStorage.isApplied">
+                                    <button class="btn btn-block btn-icon btn-inline"
+                                            data-ng-click="setAction('backup-storage/delete/vps-backup-storage-delete', backupStorage)" data-tooltip="{{i18n.vps_tab_backup_storage_table_ip_delete}}">
+                                        <i class="icon-trash"></i>
+                                    </button>
+                                </div>
+                                <div data-ng-show="backupStorage == backup.editBack && !loading.Edit && backupStorage.isApplied">
+                                    <button class="btn btn-block btn-icon btn-inline" data-ng-show="backup.edit.cifs || backup.edit.ftp || backup.edit.nfs" data-ng-click="saveBackupCurrentEdit()"
+                                        data-tooltip="{{i18n.vps_tab_backup_storage_table_ip_modify}}">
+                                        <i class="icon-ok"></i>
+                                    </button>
+                                </div>
+                                <div data-ng-show="backupStorage == backup.editBack && loading.Edit" class="loaderSmall"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div data-pagination-server-side="backupStorageTable"
+                     data-pagination-server-side-function="loadTab"
+                     data-pagination-server-side-paginated-stuff="backup.tab"
+                     data-pagination-server-side-table-loading="loading.tab">
+                </div>
+            </div>
+        </div>
+        <div class="span3">
+            <div data-ng-show="backup.information.activated">
+                <button class="btn btn-block btn-action"
+                        data-ng-class="{'btn-large' : viewMode == 'simple'}"
+                        data-ng-click="setAction('backup-storage/add/vps-backup-storage-add')">
+                    <i class="icon-backupftp-access"></i>
+                    <span data-i18n-static="vps_backup_storage_access_add_button"></span>
+                </button>
+                <button class="btn btn-block btn-action"
+                        data-ng-class="{'btn-large' : viewMode == 'simple'}"
+                        data-ng-click="setAction('backup-storage/password/vps-backup-storage-password', ftpBackup.model)">
+                    <i class="icon-backupftp-password"></i>
+                    <span data-i18n-static="vps_backup_storage_access_forgot_password_button"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

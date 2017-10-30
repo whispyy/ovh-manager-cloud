@@ -1,0 +1,90 @@
+<div data-ng-controller="VpsUpgradeCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="displayBC"
+         data-wizard-title="i18n.vps_configuration_upgradevps_title"
+		 data-wizard-title-icon="'icon-upgrade-vps'"
+         data-wizard-bread-crumb
+         data-wizard-confirm-button-text="i18n.wizard_order"
+		 class="platforms">
+
+        <div data-wizard-step
+            data-wizard-step-on-load="loadUpgradesList"
+            data-wizard-step-valid="selectedModel.model != null">
+            <span class="blue bold" data-i18n-static="vps_configuration_upgradevps_step1_question"></span>
+            <br/><br/>
+            <div class="row-fluid" data-ng-show="upgradesList">
+                <table class="table table-hover upgrade">
+                    <tr data-ng-repeat="upgrade in upgradesList">
+                        <td style="text-align: left;">
+                            <i class="icon-vps" style="margin: 0; width: 30px; height: 22px;" data-ng-show="upgrade.isCurrentModel"></i>
+                            <input type="radio" name="selectedModel" value="{{upgrade.model}}" data-ng-model="selectedModel.model" data-ng-show="upgrade.isAvailable && !upgrade.isCurrentModel" />
+                        </td>
+                        <td><span data-ng-bind-template="{{upgrade.vcore}} {{trpl('vps_configuration_upgradevps_step1_table_vcore', upgrade.vcore)}}"></span></td>
+                        <td><span data-ng-bind="upgrade.ram.value + ' ' + tr('unit_size_' + upgrade.ram.unit)"></span></td>
+                        <td><span data-ng-bind="upgrade.disk.value + ' ' + tr('unit_size_' + upgrade.disk.unit)"></span></td>
+                        <td>
+							<span class="red bold" data-ng-bind="upgrade.monthPrice + ' ' + tr('vps_configuration_upgradevps_step1_table_price_monthly')" data-ng-show="upgrade.isAvailable && !upgrade.isCurrentModel"></span>
+							<span class="label label-info" data-i18n-static="vps_configuration_upgradevps_current" data-ng-show="upgrade.isCurrentModel"></span>
+						</td>
+                    </tr>
+                </table>
+                <span data-ng-bind-html="tr('vps_configuration_upgradevps_step1_warning', [getCurrentModel().monthPrice] )"></span>
+                <br/><br/>
+                <span class="fs11 lh11 blue italic" data-i18n-static="vps_configuration_upgradevps_step1_warning2"></span>
+            </div>
+            <div class="row-fluid" data-ng-show="!upgradesList">
+                <div class="span12 loader"></div>
+            </div>
+        </div>
+
+        <div data-wizard-step
+             data-wizard-step-valid="order && agree.value == true"
+             data-wizard-step-on-load="upgradeVps">
+
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <form data-ng-show="order">
+                        <div data-contracts="order.contracts"
+                             data-ng-model="agree.value"
+                             data-full-text="false"></div>
+                    </form>
+                </div>
+                <div class="row-fluid" data-ng-show="!order">
+                    <div class="span12 loader"></div>
+                </div>
+            </div>
+        </div>
+
+        <div data-wizard-step>
+            <span class="bold blue" data-ng-bind-html="tr('vps_configuration_upgradevps_step2_question', [vps.name, selectedModelForUpgrade.name])"></span>
+            <br/>
+            <br/>
+            <div data-ng-show="order">
+                <span class="bold" data-ng-bind="tr('vps_configuration_upgradevps_step2_question2', [selectedModelForUpgrade.duration.dateFormatted])"></span>
+				<dl class="dl-horizontal">
+					<dt class="bold" data-i18n-static="vps_configuration_upgradevps_step2_totalHT"></dt>
+					<dd class="red bold" data-ng-bind="order.prices.withoutTax.text"></dd>
+    				<dt class="bold" data-i18n-static="vps_configuration_upgradevps_step2_totalTTC"></dt>
+    				<dd class="red bold" data-ng-bind="order.prices.withTax.text"></dd>
+				</dl>
+                <span class="bold" data-ng-bind-html="tr('vps_configuration_upgradevps_step2_price_by_month', [selectedModelForUpgrade.monthPrice])"></span>
+                <br/>
+                <br/>
+                <span class="blue bold" data-i18n-static="vps_configuration_upgradevps_step2_confirm"></span>
+                <br/>
+                <span data-i18n-static="vps_configuration_upgradevps_step2_explication"></span>
+                <br/>
+                <br/>
+                <span class="fs11 lh11 italic" data-i18n-static="vps_configuration_upgradevps_step2_explication2"></span>
+                <br/>
+                <br/>
+                <span class="fs11 bold lh11" data-i18n-static="vps_configuration_upgradevps_step2_explication3"></span>
+            </div>
+
+            <div class="row-fluid" data-ng-show="!order">
+                <div class="span12 loader"></div>
+             </div>
+        </div>
+    </div>
+</div>

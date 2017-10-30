@@ -1,0 +1,8 @@
+input.input-selectable {
+    cursor: text;
+    font-size: 12px;
+    height: 17px;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}

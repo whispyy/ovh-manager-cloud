@@ -1,0 +1,80 @@
+<div data-ng-controller="VpsReverseDnsCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="modifyReverse"
+         data-wizard-title="i18n.vps_configuration_reversedns_title"
+         data-wizard-title-icon="'icon-modify-dns'"
+         data-wizard-bread-crumb
+		 class="platforms">
+
+        <div data-wizard-step
+             data-wizard-step-on-load="loadIps"
+             data-wizard-step-valid="selectedIp.value">
+            <span class="blue bold"  data-ng-bind="tr('vps_configuration_reversedns_step1_question')"></span>
+            <br/>
+            <div>
+                <div class="row-fluid" data-ng-hide="loadingIps">
+                    <select class="full"
+                        data-ng-options="ip as ip.ipAddress for ip in ips"
+                        data-ng-model="selectedIp.value">
+                        <option value="" data-ng-disabled="true" selected data-i18n-static="vps_configuration_reversedns_step1_ip"></option>
+                    </select>
+                </div>
+                <div class="row-fluid" data-ng-show="loadingIps">
+                    <div class="span12 loader"></div>
+                </div>
+            </div>
+
+			<div data-wizard-step-help>
+				<span class="fs14 title" data-i18n-static="vps_configuration_reversedns_step1_title"></span>
+				<p class="fs11" data-i18n-static="vps_configuration_reversedns_step1_desc1"></p>
+				<p class="fs11" data-i18n-static="vps_configuration_reversedns_step1_desc2"></p>
+				<p class="fs11" data-i18n-static="vps_configuration_reversedns_step1_desc3"></p>
+			</div>
+        </div>
+
+        <div data-wizard-step
+             data-wizard-step-on-load="prepareDnsIpsStruct"
+             data-wizard-step-valid="reverseDnsIpsStruct.results[0].reverse" style="margin: 0;">
+
+			<table class="full">
+                <tr>
+                    <td class="half bold" data-ng-bind="tr('vps_configuration_reversedns_step2_ip')"></td>
+    				<td class="half" data-ng-bind="selectedIp.value.ipAddress"></td>
+                </tr>
+                <tr>
+    				<td class="bold" data-ng-bind="tr('vps_configuration_reversedns_step2_reverse')"></td>
+    				<td>
+                        <span data-ng-show="selectedIp.value.reverse" data-ng-bind="selectedIp.value.reverse"></span>
+                        <span data-ng-show="!selectedIp.value.reverse" data-i18n-static="common_not_configurated"></span>
+                    </td>
+                </tr>
+            </table>
+            <br/>
+            <span class="blue bold" data-ng-bind="tr('vps_configuration_reversedns_step2_newreverse')"></span>
+            <br/>
+            <input name="reverse" type="text" data-ng-model="reverseDnsIpsStruct.results[0].reverse" data-required style="width: 500px;"/>
+        </div>
+
+        <div data-wizard-step>
+            <span class="blue bold" data-ng-bind-html="tr('vps_configuration_reversedns_step3_question', [vps.name])"></span>
+            <br/><br/>
+
+			<table class="full">
+                <tr>
+                    <td class="half bold" data-ng-bind="tr('vps_configuration_reversedns_step3_oldValue')"></td>
+                    <td class="half">
+                        <span data-ng-show="selectedIp.value.reverse" data-ng-bind="selectedIp.value.reverse"></span>
+                        <span data-ng-show="!selectedIp.value.reverse" data-i18n-static="common_not_configurated"></span>
+                    </td>
+                </tr>
+                <tr>
+    				<td class="bold" data-ng-bind="tr('vps_configuration_reversedns_step3_newValue')"></td>
+                    <td data-ng-bind="reverseDnsIpsStruct.results[0].reverse"></td>
+                </tr>
+            </table>
+            <br/>
+            <span class="fs11 italic" data-i18n-static="vps_configuration_reversedns_step3_alert"></span>
+        </div>
+    </div>
+</div>

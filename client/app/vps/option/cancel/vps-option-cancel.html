@@ -1,0 +1,22 @@
+<div data-ng-controller="VpsOptionCancelCtrl">
+
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="cancelOption"
+         data-wizard-title="tr('vps_configuration_cancel_option_title_' + currentActionData.toLowerCase())"
+         data-wizard-title-icon="'icon-cancel-option'"
+         class="platforms">
+
+        <div data-wizard-step
+             data-wizard-step-on-load="init"
+             data-wizard-step-valid="!loader.loading">
+
+            <p data-ng-bind="tr('vps_configuration_cancel_option_step1_info', [expirationDate])"></p>
+
+            <p class="red" data-i18n-static="vps_configuration_cancel_option_step1_warn"></p>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,70 @@
+<div data-ng-controller="VpsVeeamOrderCtrl">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="displayBC"
+         data-wizard-title="i18n.vps_configuration_veeam_order_title"
+		 data-wizard-title-icon="'icon-veeam-order'"
+         data-wizard-bread-crumb
+         data-wizard-confirm-button-text="i18n.wizard_pay"
+		 class="platforms">
+
+        <div data-wizard-step
+            data-wizard-step-on-load="loadOptionDetails"
+            data-wizard-step-valid="model.contractsValidated">
+            <div data-ng-show="model.vps">
+                <span class="blue bold" data-ng-bind-html="tr('vps_configuration_veeam_order_step1_question', [vps.name])"></span>
+                <br/>
+            </div>
+            <div data-ng-show="model.optionDetails">
+    			<dl class="dl-horizontal">
+    				<dt class="bold" data-i18n-static="vps_configuration_veeam_order_step1_totalHT"></dt>
+    				<dd class="red bold" data-ng-bind="model.optionDetails.withoutTax"></dd>
+
+    				<dt class="bold" data-i18n-static="vps_configuration_veeam_order_step1_totalTTC"></dt>
+    				<dd class="red bold" data-ng-bind="model.optionDetails.withTax"></dd>
+                </dl>
+                <span data-i18n-static="vps_configuration_veeam_order_step1_info"></span>
+                <br/>
+                <span data-ng-bind-html="tr('vps_configuration_veeam_order_step1_info2', [model.optionDetails.unitaryPrice])"></span>
+                <br/>
+                <br/>
+                <span class="blue bold" data-i18n-static="vps_configuration_veeam_order_step1_id"></span>
+                <br/>
+                <br/>
+                <input id="contractsValidated" type="checkbox" data-ng-model="model.contractsValidated" style="margin-top: -1px;">
+                &nbsp;
+                <label style="display: inline;" for="contractsValidated" data-i18n-static="vps_configuration_veeam_order_step1_contracts"></label>
+                <ul>
+                    <li data-ng-repeat="contract in model.optionDetails.contracts">
+                        <a target="_blank" data-ng-href='{{contract.url}}' data-ng-bind='contract.name'></a>
+                    </li>
+                </ul>
+                <br/>
+                <span class="italic fs11 lh11" data-i18n-static="server_configuration_firewall_asa_order_step2_info"></span>
+            </div>
+            <div class="row-fluid" data-ng-show="!model.vps || !model.optionDetails">
+                <div class="span12 loader"></div>
+            </div>
+        </div>
+
+        <div data-wizard-step
+            data-wizard-step-on-load="order"
+            data-wizard-step-valid="model.url">
+            <div data-ng-hide="model.url" class="row-fluid">
+                <div class="loader"></div>
+                <span class="center block" data-i18n-static="vps_configuration_veeam_order_step2_generation_bc"></span>
+            </div>
+            <div data-ng-show="model.url" class="row-fluid">
+                <span data-i18n-static="vps_configuration_veeam_order_step2_bc"></span>
+                <br/>
+                <br/>
+                <span class="blue bold" data-i18n-static="vps_configuration_veeam_order_step2_continue"></span>
+                <br/>
+                <span data-i18n-static="vps_configuration_veeam_order_step2_explication"></span>
+                <br/><br/>
+                <span class="fs11 lh11 italic" data-i18n-static="vps_configuration_veeam_order_step2_explication2"></span>
+            </div>
+        </div>
+
+    </div>
+</div>

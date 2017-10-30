@@ -1,0 +1,23 @@
+<div data-ng-controller="VpsSnapshotTakeCtrl" class="vps-snapshot-wizard">
+    <div data-wizard
+         data-wizard-on-cancel="resetAction"
+         data-wizard-on-finish="takeSnapshot"
+         data-wizard-title="i18n.vps_configuration_snapshot_take_title"
+		 data-wizard-title-icon="'icon-take-snapshot'"
+         data-wizard-bread-crumb
+		 class="platforms">
+
+        <div data-wizard-step>
+            <p class="bold blue" data-ng-bind-html="tr('vps_configuration_snapshot_take_step1_question', [vps.name])"></p>
+            <p class="bold"; data-ng-bind="tr('vps_configuration_snapshot_take_step1_description')"></p>
+            <input type="text" data-ng-model="snapshotToTake.description" style="width: 495px;">
+            <div class="red wizard-bottom-message-placeholder"></div>
+        </div>
+        <div data-wizard-step>
+            <p class="bold blue" data-ng-bind-html="tr('vps_configuration_snapshot_take_step2_question', [vps.name])"></p>
+            <p class="bold"; data-ng-bind="tr('vps_configuration_snapshot_take_step2_description')"></p>
+            <div class="wizard-input-placeholder" data-ng-bind="snapshotToTake.description"></div>
+            <div class="red wizard-bottom-message-placeholder" data-ng-bind="tr('vps_configuration_snapshot_take_step2_confirmation')"></div>
+        </div>
+    </div>
+</div>
