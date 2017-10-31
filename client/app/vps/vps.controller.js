@@ -13,7 +13,8 @@ angular.module("managerApp").controller("VpsCtrl", [
     "STOP_NOTIFICATION_USER_PREF",
     "$translate",
     "Module.vps.services.Notification",
-    function ($scope, $rootScope, $filter, $q, $log, Vps, User, $timeout, CloudMessage, Polling, constants, STOP_NOTIFICATION_USER_PREF, $translate, Notification) {
+    "TARGET",
+    function ($scope, $rootScope, $filter, $q, $log, Vps, User, $timeout, CloudMessage, Polling, constants, STOP_NOTIFICATION_USER_PREF, $translate, Notification, TARGET) {
         "use strict";
 
         var vpsPollingTasksInitialized = false;
@@ -51,7 +52,7 @@ angular.module("managerApp").controller("VpsCtrl", [
         $scope.autoRenewGuide = null;
         $scope.hasPaymentMean = false;
 
-        $scope.worldPart =  constants.target;
+        $scope.worldPart =  TARGET;
 
         $scope.reloadVps = function () {
             $scope.loadingVPSInformations = true;
@@ -77,26 +78,25 @@ angular.module("managerApp").controller("VpsCtrl", [
         };
 
         $scope.loadVpsOnly = function () {
-            return Vps.getSelected(true).then(
-                    function (vps) {
-                        var expiration = moment.utc(vps.expiration);
-                        vps.expiration = moment([expiration.year(), expiration.month(), expiration.date()]).toDate();
+            return Vps.getSelected(true)
+                .then(function (vps) {
+                    var expiration = moment.utc(vps.expiration);
+                    vps.expiration = moment([expiration.year(), expiration.month(), expiration.date()]).toDate();
 
-                        vps.ipv6Gateway = _.get($scope, "vps.ipv6Gateway"); //If an old value is present, we preserve it in case loadIPs is not called after.  
-                        $scope.vps = vps;
-                        $scope.loadingVPSInformations = false;
-                        $scope.loadingVPSStatus = false;
-                        $scope.iconDistribution = vps.distribution ? "icon-" + vps.distribution.distribution : "";
-                        $scope.iconLocationCountry = vps.location ? "icon-" + vps.location.country : "";
+                    vps.ipv6Gateway = _.get($scope, "vps.ipv6Gateway"); //If an old value is present, we preserve it in case loadIPs is not called after.  
+                    $scope.vps = vps;
+                    $scope.loadingVPSInformations = false;
+                    $scope.loadingVPSStatus = false;
+                    $scope.iconDistribution = vps.distribution ? "icon-" + vps.distribution.distribution : "";
+                    $scope.iconLocationCountry = vps.location ? "icon-" + vps.location.country : "";
 
-                        if (vps.isExpired) {
-                            $scope.setMessage($scope.tr("common_service_expired", [vps.name]));
-                        } else if (vps.messages.length > 0) {
-                            $scope.setMessage($scope.tr("vps_dashboard_loading_error"), vps);
-                        }
-                        return vps;
+                    if (vps.isExpired) {
+                        $scope.setMessage($scope.tr("common_service_expired", [vps.name]));
+                    } else if (vps.messages.length > 0) {
+                        $scope.setMessage($scope.tr("vps_dashboard_loading_error"), vps);
                     }
-                );
+                    return vps;
+                });
         };
 
         function loadIps () {
@@ -328,7 +328,7 @@ angular.module("managerApp").controller("VpsCtrl", [
             $scope.currentActionData = data;
             $scope.currentActionLargeModal = large;
             if ($scope.currentAction) {
-                $scope.stepPath = "vps/" + $scope.currentAction + ".html";
+                $scope.stepPath = "app/vps/" + $scope.currentAction + ".html";
                 $("#currentAction").modal({
                     keyboard: false,
                     backdrop: "static"

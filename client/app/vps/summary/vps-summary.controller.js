@@ -1,12 +1,12 @@
 angular.module("managerApp").controller("VpsTabSummaryCtrl", [
     "$scope",
     "$q",
-    "Alerter",
+    "CloudMessage",
     "Module.vps.services.Vps",
     "User",
     "additionalDisk.hasNoOption",
 
-    function ($scope, $q, Alerter, Vps, User, additionalDiskHasNoOption) {
+    function ($scope, $q, CloudMessage, Vps, User, additionalDiskHasNoOption) {
         "use strict";
 
         $scope.alertId = "vps_summary_alert";
@@ -55,7 +55,7 @@ angular.module("managerApp").controller("VpsTabSummaryCtrl", [
                     $scope.additionalDisk.hasOption = false;
                 } else {
                     $scope.additionalDisk.error = true;
-                    Alerter.alertFromSWS($scope.tr("vps_additional_disk_info_fail"), error, $scope.alertId);
+                    CloudMessage.error($scope.tr("vps_additional_disk_info_fail"), error, $scope.alertId);
                 }
             })
             ["finally"](function () {

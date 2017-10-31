@@ -4,19 +4,12 @@ angular.module("managerApp").service("User", [
     "$q",
     "Products",
     "OvhApiMe",
-    function ($rootScope, $http, $q, Products, OvhApiMe) {
+    "constants",
+    function ($rootScope, $http, $q, Products, OvhApiMe, constants) {
         "use strict";
 
-        // to replace
-        var constants = {
-            urls: []
-        };
-
         this.getUser = function () {
-            return OvhApiMe.Lexi().get().$promise
-                .then(function(user) {
-                    return user;
-                });
+            return OvhApiMe.Lexi().get().$promise;
         };
 
 
@@ -50,7 +43,7 @@ angular.module("managerApp").service("User", [
             // return OvhHttp.get("/me/sshKey", {
             //     rootPath: "apiv6"
             // });
-            return OvhApiMeSshKey.Lexi().get().$promise;
+            return OvhApiMe.SshKey().Lexi().get().$promise;
         };
 
         this.getUserAlerts = function () {
