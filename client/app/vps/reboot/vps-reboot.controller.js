@@ -1,9 +1,9 @@
 angular.module("managerApp").controller("VpsRebootCtrl", [
     "$scope",
     "Module.vps.services.Vps",
-    "Alerter",
+    "CloudMessage",
 
-    function ($scope,Vps,Alerter){
+    function ($scope,Vps,CloudMessage){
         "use strict";
 
         $scope.model = null;
@@ -32,12 +32,12 @@ angular.module("managerApp").controller("VpsRebootCtrl", [
                 }, function () {
                     $scope.resetAction();
                     $scope.loader.task = false;
-                    Alerter.alertFromSWS($scope.tr("vps_configuration_reboot_fail"), "ERROR", $scope.alertId);
+                    CloudMessage.error($scope.tr("vps_configuration_reboot_fail"), "ERROR", $scope.alertId);
                 });
             } else {
                 $scope.resetAction();
                 $scope.loader.task = false;
-                Alerter.alertFromSWS($scope.tr("vps_configuration_polling_fail"), "ERROR", $scope.alertId);
+                CloudMessage.error($scope.tr("vps_configuration_polling_fail"), "ERROR", $scope.alertId);
             }
         }
 
@@ -47,11 +47,11 @@ angular.module("managerApp").controller("VpsRebootCtrl", [
             Vps.reboot($scope.selected.rescue).then(function () {
                 $scope.resetAction();
                 $scope.loader.loading = false;
-                Alerter.alertFromSWS($scope.tr("vps_configuration_reboot_success", $scope.vps.name), true, $scope.alertId);
+                CloudMessage.success($scope.tr("vps_configuration_reboot_success", $scope.vps.name), true, $scope.alertId);
             }, function (data) {
                 $scope.resetAction();
                 $scope.loader.loading = false;
-                Alerter.alertFromSWS($scope.tr("vps_configuration_reboot_fail"), data, $scope.alertId);
+                CloudMessage.error($scope.tr("vps_configuration_reboot_fail"), data, $scope.alertId);
             });
         };
 

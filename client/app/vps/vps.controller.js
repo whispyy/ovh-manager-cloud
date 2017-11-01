@@ -91,9 +91,9 @@ angular.module("managerApp").controller("VpsCtrl", [
                     $scope.iconLocationCountry = vps.location ? "icon-" + vps.location.country : "";
 
                     if (vps.isExpired) {
-                        $scope.setMessage($scope.tr("common_service_expired", [vps.name]));
+                        $scope.setMessage($translate.instant("common_service_expired", [vps.name]));
                     } else if (vps.messages.length > 0) {
-                        $scope.setMessage($scope.tr("vps_dashboard_loading_error"), vps);
+                        $scope.setMessage($translate.instant("vps_dashboard_loading_error"), vps);
                     }
                     return vps;
                 });
@@ -116,7 +116,7 @@ angular.module("managerApp").controller("VpsCtrl", [
                     ["catch"](function () {
                         $scope.loadingVPSInformations = false;
                         $scope.loadingVPSError = true;
-                        $scope.setMessage($scope.tr("vps_dashboard_loading_error"));
+                        $scope.setMessage($translate.instant("vps_dashboard_loading_error"));
                     })
                     .then(function () {
                         if (!$scope.vps.isExpired) {
@@ -133,7 +133,7 @@ angular.module("managerApp").controller("VpsCtrl", [
                     })
                     ["catch"](function () {
                         // vpsMonitoring data contains error and graph can't be generated
-                        $scope.setMessage($scope.tr("vps_dashboard_loading_error_monitoring"));
+                        $scope.setMessage($translate.instant("vps_dashboard_loading_error_monitoring"));
                         $scope.loadingVPSMonitoring = false;
                         $scope.loadingVPSMonitoringError = true;
                     });
@@ -155,7 +155,7 @@ angular.module("managerApp").controller("VpsCtrl", [
                     netTx: "#3D92B1"
                 };
 
-            $scope.chartOptions = {
+            var chartOptions = {
                 chart: {
                     renderTo: "vpsNetworkMonitoringChart",
                     height: 110
@@ -230,14 +230,16 @@ angular.module("managerApp").controller("VpsCtrl", [
                 },
                 series: [{
                     data: $scope.vps.monitoring.netRx.values[0].points,
-                    name: $scope.i18n.vps_monitoring_network_netRx,
+                    name: $translate.instant("vps_monitoring_network_netRx"),
                     color: colors.netRx
                 }, {
                     data: $scope.vps.monitoring.netTx.values[0].points,
-                    name: $scope.i18n.vps_monitoring_network_netTx,
+                    name: $translate.instant("vps_monitoring_network_netTx"),
                     color: colors.netTx
                 }]
             };
+
+            $scope.chartOptions = chartOptions;
         }
 
         $scope.resetAction = function (noAction) {
@@ -353,18 +355,18 @@ angular.module("managerApp").controller("VpsCtrl", [
             if (!tasks || !tasks.length) {
                 Vps.update({ slaMonitoring: newState }).then(function (data) {
                     getTaskSlaMonitoringInProgress();
-                    CloudMessage.success($scope.tr("vps_configuration_monitoring_sla_ok_" + newState), data, $scope.alerts.dashboard);
+                    CloudMessage.success($translate.instant("vps_configuration_monitoring_sla_ok_" + newState), data, $scope.alerts.dashboard);
                 }, function (data) {
                     $scope.vps.slaMonitoring = !newState;
-                    CloudMessage.error($scope.tr("vps_configuration_monitoring_sla_error_" + newState), data.data, $scope.alerts.dashboard);
+                    CloudMessage.error($translate.instant("vps_configuration_monitoring_sla_error_" + newState), data.data, $scope.alerts.dashboard);
                 });
             } else {
-                CloudMessage.error($scope.tr("vps_configuration_polling_fail"), "ERROR", $scope.alertId);
+                CloudMessage.error($translate.instant("vps_configuration_polling_fail"), "ERROR", $scope.alertId);
             }
         }
 
         $scope.showAlertNetboot = function () {
-            CloudMessage.warning($scope.tr("vps_configuration_reinitpassword_fail_netboot", [
+            CloudMessage.warning($translate.instant("vps_configuration_reinitpassword_fail_netboot", [
                 $scope.reinitPasswordGuide
             ]), "WARN", $scope.alertId);
         };
@@ -431,7 +433,7 @@ angular.module("managerApp").controller("VpsCtrl", [
                         $scope.$broadcast("vps.TASK.polling", task);
                     });
                 })
-                ["finally"](function () {
+                .then(function () {
                     vpsPollingTasksInitialized = true;
                 });
         }
@@ -458,7 +460,7 @@ angular.module("managerApp").controller("VpsCtrl", [
                     $scope.vpsPolling[taskName] = false;
                     launchBroadcast(taskName);
                     if ($scope.i18n["vps_configuration_" + taskName + "_polling_done"]) {
-                        CloudMessage.success($scope.tr("vps_configuration_" + taskName + "_polling_done", $scope.vps.name), true, $scope.alertId);
+                        CloudMessage.success($translate.instant("vps_configuration_" + taskName + "_polling_done", $scope.vps.name), true, $scope.alertId);
                     }
                 } else {
                     startPoll(task);
@@ -466,7 +468,7 @@ angular.module("managerApp").controller("VpsCtrl", [
             }, function (data) {
                 $scope.vpsPolling[taskName] = false;
                 if ($scope.i18n["vps_configuration_" + taskName + "_polling_fail"]) {
-                    CloudMessage.error($scope.tr("vps_configuration_" + taskName + "_polling_fail"), data, $scope.alertId);
+                    CloudMessage.error($translate.instant("vps_configuration_" + taskName + "_polling_fail"), data, $scope.alertId);
                 }
             });
         }
@@ -515,7 +517,7 @@ angular.module("managerApp").controller("VpsCtrl", [
         $scope.resetDisplayName = function () {
             $timeout(function () {
                 $scope.editMode = false;
-                $scope.setMessage($scope.tr("vps_dashboard_display_name_reset"));
+                $scope.setMessage($translate.instant("vps_dashboard_display_name_reset"));
             }, 300);
         };
 
@@ -525,17 +527,17 @@ angular.module("managerApp").controller("VpsCtrl", [
 
         $scope.saveDisplayName = function () {
             if ($scope.newDisplayName && $scope.newDisplayName.length >= 2) {
-                $scope.setMessage($scope.tr("vps_dashboard_action_doing"));
+                $scope.setMessage($translate.instant("vps_dashboard_action_doing"));
 
                 var dataToSend = { "displayName": $scope.newDisplayName };
                 Vps.updateDisplayName(dataToSend)
                 .then(function () {
                     $scope.editMode = false;
-                    $scope.setMessage($scope.tr("exchange_ACTION_configure_success"));
+                    $scope.setMessage($translate.instant("exchange_ACTION_configure_success"));
                     $scope.vps.displayName = $scope.newDisplayName;
                 }, function (reason) {
                     $scope.editMode = false;
-                    $scope.setMessage($scope.tr("exchange_ACTION_configure_error"), reason.data || "");
+                    $scope.setMessage($translate.instant("exchange_ACTION_configure_error"), reason.data || "");
                 });
                 $scope.editMode = false;
             }
@@ -558,7 +560,7 @@ angular.module("managerApp").controller("VpsCtrl", [
 
         $scope.hasAutoRenew = function () {
             $scope.autoRenew = false;
-            if (constants.NO_AUTORENEW_COUNTRIES.indexOf($scope.user.ovhSubsidiary) === -1) {
+            if (constants[TARGET].NO_AUTORENEW_COUNTRIES.indexOf($scope.user.ovhSubsidiary) === -1) {
                 return $q.all([Vps.getServiceInfos(), Vps.isAutoRenewable()])
                     .then(function (results) {
                         $scope.autoRenew = results[0].renew && results[0].renew.automatic;
@@ -598,13 +600,14 @@ angular.module("managerApp").controller("VpsCtrl", [
             .then(function (data) {
                 $scope.checkIfStopNotification("ipV6", true, $scope.vps.name);
                 $scope.user = data[1];
-                $scope.reinitPasswordGuide = constants.urls[$scope.user.ovhSubsidiary].guides.reinitPassword || constants.urls.FR.guides.reinitPassword;
+                // $scope.reinitPasswordGuide = constants.urls[$scope.user.ovhSubsidiary].guides.reinitPassword || constants.urls.FR.guides.reinitPassword;
                 $scope.hasPaymentMean = data[2].length > 0;
                 $scope.serviceInfos = data[3];
-                $scope.initGuidesUrl();
+                // $scope.initGuidesUrl();
                 $scope.hasAutoRenew();
-            })
-            ["finally"](function () {
+            }).catch(function (err) {
+                CloudMessage.error(err);
+            }).finally(function () {
                 $scope.loaders.autoRenew = false;
                 $scope.loaders.ipV6 = false;
             });
@@ -625,7 +628,7 @@ angular.module("managerApp").controller("VpsCtrl", [
             $scope.stopNotification.autoRenew = true;
             Notification.stopNotification(STOP_NOTIFICATION_USER_PREF.autoRenew, $scope.vps.name)
                 ["catch"](function (error) {
-                    CloudMessage.error($scope.tr("vps_stop_bother_error"), error, $scope.alerts.dashboard);
+                    CloudMessage.error($translate.instant("vps_stop_bother_error"), error, $scope.alerts.dashboard);
                 });
         };
 
@@ -633,7 +636,7 @@ angular.module("managerApp").controller("VpsCtrl", [
             $scope.stopNotification.ipV6 = true;
             Notification.stopNotification(STOP_NOTIFICATION_USER_PREF.ipV6, $scope.vps.name)
                 ["catch"](function (error) {
-                    CloudMessage.error($scope.tr("vps_stop_bother_error"), error, $scope.alerts.dashboard);
+                    CloudMessage.error($translate.instant("vps_stop_bother_error"), error, $scope.alerts.dashboard);
                 });
         };
 

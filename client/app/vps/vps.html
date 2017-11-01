@@ -8,7 +8,7 @@
                data-ng-href="{{ ipv6GuideUrl }}"
                title="{{::i18n.vps_configuration_ipV6_guide_link_text}} ({{::i18n.core_new_window}})"
                target="_blank">
-                <span data-i18n-static="vps_configuration_ipV6_guide_link_text"></span>
+                <span data-translate="vps_configuration_ipV6_guide_link_text"></span>
                 <span class="fa fa-external-link"></span>
             </a>
         </div>
@@ -33,11 +33,11 @@
                href="{{ autoRenewGuide }}"
                target="_blank"
                data-ng-if="!hasPaymentMean"
-               data-i18n-static="vps_autorenew_guide"></a>
+               data-translate="vps_autorenew_guide"></a>
             <a class="btn btn-info"
                href="#/billing/autoRenew"
                data-ng-if="hasPaymentMean"
-               data-i18n-static="vps_autorenew_activate"></a>
+               data-translate="vps_autorenew_activate"></a>
         </div>
 
         <div class="alert" data-ng-if="vps.netbootMode === 'RESCUE'">
@@ -114,19 +114,19 @@
                                 <br/>
 
                                 <div class="row">
-                                    <strong data-i18n-static="vps_dashboard_initName"></strong>
+                                    <strong data-translate="vps_dashboard_initName"></strong>
                                     <br/>
                                     <span data-ng-bind="vps.name"></span>
                                 </div>
 
                                 <div class="row tspace">
-                                    <strong data-i18n-static="vps_dashboard_boot"></strong>
+                                    <strong data-translate="vps_dashboard_boot"></strong>
                                     <br/>
                                     <span data-ng-bind="vps.netbootMode"></span>
                                 </div>
 
                                 <div class="row tspace">
-                                    <strong data-i18n-static="vps_dashboard_creationDate"></strong>
+                                    <strong data-translate="vps_dashboard_creationDate"></strong>
                                     <br/>
                                     <span>{{vps.creation|date:'shortDate'}}</span>
                                 </div>
@@ -146,66 +146,66 @@
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="common_ipv4"></strong>
+                                    <strong data-translate="common_ipv4"></strong>
                                     <br/>
                                     <input-selectable id="input_ipv6" data-ng-value="vps.ipv4" readonly></input-selectable>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="common_ipv6"></strong>
+                                    <strong data-translate="common_ipv6"></strong>
                                     <a class="guide-link"
                                        data-ng-href="{{ ipv6GuideUrl }}"
                                        title="{{::i18n.vps_configuration_ipV6_guide_link_text}} ({{::i18n.core_new_window}})"
                                        target="_blank">
                                         <span>
-                                            (<span data-i18n-static="vps_configuration_ipV6_guide_link_text"></span> <span class="fa fa-external-link"></span>)
+                                            (<span data-translate="vps_configuration_ipV6_guide_link_text"></span> <span class="fa fa-external-link"></span>)
                                         </span>
                                     </a>
                                     <br/>
                                     <div data-ng-if="vps.ipv6">
                                         <div class="form-group tspace">
-                                            <label for="input_ipv6" class="control-label col-md-2" data-i18n-static="vps_configuration_ipV6_address_label"></label>
+                                            <label for="input_ipv6" class="control-label col-md-2" data-translate="vps_configuration_ipV6_address_label"></label>
                                             <div class="controls">
                                                 <input-selectable id="input_ipv6" data-ng-value="vps.ipv6|expandIpv6" class="ip-v6-input" readonly></input-selectable>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="input_ipv6_gateway" class="control-label col-md-2" data-i18n-static="vps_configuration_ipV6_gateway_label"></label>
+                                            <label for="input_ipv6_gateway" class="control-label col-md-2" data-translate="vps_configuration_ipV6_gateway_label"></label>
                                             <div class="controls">
                                                 <input-selectable id="input_ipv6_gateway" data-ng-value="vps.ipv6Gateway|expandIpv6" class="ip-v6-input" readonly></input-selectable>
                                             </div>
                                         </div>
                                     </div>
-                                    <span data-ng-if="!vps.ipv6" data-i18n-static="vps_dashboard_ipv6_not_available"></span>
+                                    <span data-ng-if="!vps.ipv6" data-translate="vps_dashboard_ipv6_not_available"></span>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="vps_dashboard_reverse_dns"></strong>
+                                    <strong data-translate="vps_dashboard_reverse_dns"></strong>
                                     <br/>
                                     <span data-ng-if="vps.reverseDns" data-ng-bind="vps.reverseDns"></span>
-                                    <span data-ng-if="!vps.reverseDns" data-i18n-static="vps_dashboard_reverse_dns_none"></span>
+                                    <span data-ng-if="!vps.reverseDns" data-translate="vps_dashboard_reverse_dns_none"></span>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="vps_dashboard_secondary_dns"></strong>
+                                    <strong data-translate="vps_dashboard_secondary_dns"></strong>
                                     <br/>
                                     <span data-ng-bind="trpl('vps_dashboard_secondary_dns_count', vps.secondaryDns, [vps.secondaryDns])"></span>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="vps_zone"></strong>
+                                    <strong data-translate="vps_zone"></strong>
                                     <br/>
                                     <span data-ng-bind="vps.zone"></span>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="vps_cluster"></strong>
+                                    <strong data-translate="vps_cluster"></strong>
                                     <br/>
                                     <span data-ng-bind="vps.cluster"></span>
                                 </div>
 
                                 <div class="row tspace" data-ng-if="!vps.isExpired">
-                                    <strong data-i18n-static="vps_dashboard_monitoring_sla"></strong>
+                                    <strong data-translate="vps_dashboard_monitoring_sla"></strong>
                                     <br/>
                                     <input style="margin-top: 5px;" data-checkbox-switch2
                                            data-ng-model="vps.slaMonitoring"
@@ -219,7 +219,7 @@
                             <div class="col-md-6" data-ng-if="!vps.isExpired">
                                 <div class="state-service">
                                     <div class="row">
-                                        <strong data-i18n-static="vps_dashboard_state_services"></strong>
+                                        <strong data-translate="vps_dashboard_state_services"></strong>
                                         <button class="btn btn-block btn-inline btn-icon"
                                                 data-ng-click="!loadingVPSStatus && refreshVpsStatus()">
                                             <i class="icon-refresh" data-ng-class="{'fa-spin': loadingVPSStatus}"></i>
@@ -228,43 +228,43 @@
                                         <div class="tspace">
                                             <div data-ng-if="vps.ping" class="btn btn-default fs11" data-ng-class="vps.ping" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_ping_tooltip_' + vps.ping)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_ping | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_ping"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.ssh" class="btn btn-default fs11" data-ng-class="vps.ssh" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_ssh_tooltip_' + vps.ssh)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_ssh | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_ssh"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.http" class="btn btn-default fs11" data-ng-class="vps.http" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_http_tooltip_' + vps.http)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_http | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_http"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.https" class="btn btn-default fs11" data-ng-class="vps.https" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_https_tooltip_' + vps.https)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_https | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_https"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.dns" class="btn btn-default fs11" data-ng-class="vps.dns" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_dns_tooltip_' + vps.dns)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_dns | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_dns"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.smtp" class="btn btn-default fs11" data-ng-class="vps.smtp" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_smtp_tooltip_' + vps.smtp)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_smtp | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_smtp"></span>
                                                 </a>
                                             </div>
 
                                             <div data-ng-if="vps.tools" class="btn btn-default fs11" data-ng-class="vps.tools" data-tooltip-placement="top" data-tooltip="{{tr('vps_dashboard_tools_tooltip_' + vps.tools)}}">
                                                 <a>
-                                                    <span data-i18n-static="vps_dashboard_tools | uppercase"></span>
+                                                    <span data-translate="vps_dashboard_tools"></span>
                                                 </a>
                                             </div>
                                         </div>
@@ -297,12 +297,12 @@
                                          data-ng-model="chartOptions"
                                          data-chart="chartOptions">
                                     </div>
-                                    <span class="label tspace" data-ng-if="!chartOptions" data-i18n-static="common_TODO"></span>
+                                    <span class="label tspace" data-ng-if="!chartOptions" data-translate="common_TODO"></span>
                                 </div>
                                 <br/>
                                 <div class="row tspace" data-ng-if="!vps.isExpired && vps.slaMonitoring">
                                     <div class="col-md-6">
-                                        <strong data-i18n-static="vps_dashboard_monitoring_sla_ips"></strong>
+                                        <strong data-translate="vps_dashboard_monitoring_sla_ips"></strong>
                                         <sup class="fs12 tooltip-help" data-tooltip-placement="right" data-tooltip="{{tr('vps_dashboard_monitoring_sla_ips_tooltip')}}">?</sup>
                                         <ul>
                                             <li data-ng-repeat="ipSla in vps.monitoringIpBlocks" data-ng-bind="ipSla"></li>
@@ -312,13 +312,13 @@
                                 <br/>
                                 <div class="row" data-ng-if="!loadingVPSMonitoring && !loadingVPSMonitoringError">
                                     <div class="col-md-6">
-                                        <strong data-i18n-static="vps_dashboard_processor"></strong>
+                                        <strong data-translate="vps_dashboard_processor"></strong>
                                         <br/>
                                         <span class="fs11" data-ng-bind="vps.vcore + ' ' + trpl('vps_dashboard_vcore', vps.vcore)"></span>
                                         <div data-mini-chart data-chartdata="vps.monitoring.cpu" id="CPULoadChart"></div>
                                     </div>
                                     <div class="col-md-6">
-                                        <strong data-i18n-static="vps_dashboard_RAM"></strong>
+                                        <strong data-translate="vps_dashboard_RAM"></strong>
                                         <br/>
                                         <span class="fs11" data-ng-bind="vps.ram.value + ' ' + tr('unit_size_' + vps.ram.unit)"></span>
                                         <div data-mini-chart data-chartdata="vps.monitoring.ram" id="RAMLoadChart"></div>
@@ -326,7 +326,7 @@
                                 </div><!-- row fluid-->
 
                                 <div data-ng-show="getPollingActivity()">
-                                    <strong data-i18n-static="vps_dashboard_task"></strong>
+                                    <strong data-translate="vps_dashboard_task"></strong>
                                     <div ng-repeat="(key, value) in vpsPolling" data-ng-show="value && i18n['vps_dashboard_task_' + key]">
                                         {{i18n['vps_dashboard_task_' + key]}} :
                                         <div class="progress progress-striped active">
@@ -356,7 +356,7 @@
                                     <span data-ng-if="vpsPolling.changeRootPassword" class="btn-progress-bar" data-ng-style="{'right' : 100 - vpsPollingProgress.changeRootPassword + '%'}"></span>
                                     <span data-ng-if="vpsPolling.changeRootPassword" class="btn-pourcent" data-ng-bind="vpsPollingProgress.changeRootPassword + '%'"></span>
                                     <i data-ng-hide="vpsPolling.changeRootPassword" class="icon-init-password"></i>
-                                    <span data-i18n-static="vps_configuration_reinitpassword_title_button"></span>
+                                    <span data-translate="vps_configuration_reinitpassword_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action btn-progress"
                                         data-ng-click="setAction('reboot/vps-reboot')" data-ng-if="!vps.isExpired"
@@ -372,12 +372,12 @@
                                           data-ng-bind="vpsPollingProgress.rebootVm + '%'"></span>
 
                                     <i data-ng-hide="(vpsPolling.setNetboot && vps.netbootMode == 'RESCUE') || (vpsPolling.rebootVm && vps.netbootMode != 'RESCUE')" class="icon-restart-vps"></i>
-                                    <span data-i18n-static="vps_configuration_reboot_title_button"></span>
+                                    <span data-translate="vps_configuration_reboot_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action"
                                         data-ng-click="setAction('reverse-dns/vps-reverse-dns')" data-ng-if="!vps.isExpired">
                                     <i class="icon-modify-dns"></i>
-                                    <span data-i18n-static="vps_configuration_reversedns_title_button"></span>
+                                    <span data-translate="vps_configuration_reversedns_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action btn-progress"
                                         data-ng-click="setAction('reinstall/vps-reinstall', vps.offerType)"
@@ -385,18 +385,18 @@
                                     <span data-ng-if="vpsPolling.reinstallVm" class="btn-progress-bar" data-ng-style="{'right' : 100 - vpsPollingProgress.reinstallVm + '%'}"></span>
                                     <span data-ng-if="vpsPolling.reinstallVm" class="btn-pourcent" data-ng-bind="vpsPollingProgress.reinstallVm + '%'"></span>
                                     <i data-ng-hide="vpsPolling.reinstallVm" class="icon-reinstall-vps"></i>
-                                    <span data-i18n-static="vps_configuration_reinstall_title_button"></span>
+                                    <span data-translate="vps_configuration_reinstall_title_button"></span>
                                 </button>
                                 <a data-ng-if="worldPart !== 'CA'" class="btn btn-block btn-action"
                                    data-ng-href="{{'#/billing/autoRenew?selectedType=VPS&searchText=' + vps.name}}">
                                     <i class="icon-renew-vps"></i>
-                                    <span data-i18n-static="vps_configuration_renewvps_title_button"></span>
+                                    <span data-translate="vps_configuration_renewvps_title_button"></span>
                                 </a>
 
                                 <button data-ng-if="worldPart === 'CA'" class="btn btn-block btn-action"
                                         data-ng-click="setAction('renew/vps-renew')" data-ng-if="vps.canOrder">
                                     <i class="icon-renew-vps"></i>
-                                    <span data-i18n-static="vps_configuration_renewvps_title_button"></span>
+                                    <span data-translate="vps_configuration_renewvps_title_button"></span>
                                 </button>
 
                                 <a class="btn btn-block btn-action"
@@ -406,27 +406,27 @@
                                    data-ng-href="{{::changeOwnerUrl}}"
                                    target="_blank">
                                     <i class="icon-exchange-externalcontact-modify"></i>
-                                    <span data-i18n-static="core_change_owner"></span>
+                                    <span data-translate="core_change_owner"></span>
                                 </a>
 
                                 <button class="btn btn-block btn-action"
                                         data-ng-click="setAction('monitoring/vps-monitoring')"
                                         data-ng-if="!vps.isExpired">
                                     <i class="icon-monitoring"></i>
-                                    <span data-i18n-static="vps_configuration_monitoring_title_button"></span>
+                                    <span data-translate="vps_configuration_monitoring_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action "
                                         data-ng-click="setAction('upgrade/vps-upgrade')"
                                         data-ng-if="vps.canOrder && !vps.isExpired"
                                         data-ng-disabled="getPollingActivity()">
                                     <i class="icon-upgrade-vps"></i>
-                                    <span data-i18n-static="vps_configuration_upgradevps_title_button"></span>
+                                    <span data-translate="vps_configuration_upgradevps_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action"
                                         data-ng-click="setAction('kvm/vps-kvm',null,true)"
                                         data-ng-if="!vps.isExpired" data-ng-disabled="getPollingActivity()">
                                     <i class="icon-kvm-vps"></i>
-                                    <span data-i18n-static="vps_configuration_kvm_title_button"></span>
+                                    <span data-translate="vps_configuration_kvm_title_button"></span>
                                 </button>
                                 <button class="btn btn-block btn-action btn-progress"
                                         data-ng-click="setAction('reboot/rescue/vps-reboot-rescue')"
@@ -444,14 +444,14 @@
                                           data-ng-bind="vpsPollingProgress.rebootVm + '%'"></span>
 
                                     <i data-ng-hide="(vpsPolling.setNetboot && vps.netbootMode != 'RESCUE') || (vpsPolling.rebootVm && vps.netbootMode == 'RESCUE')" class="icon-rescue-vps"></i>
-                                    <span data-i18n-static="vps_configuration_reboot_rescue_title_button"></span>
+                                    <span data-translate="vps_configuration_reboot_rescue_title_button"></span>
                                 </button>
                                 <a data-ng-if="worldPart !== 'CA' && !vps.isExpired"
                                    data-ng-href="{{ '#/useraccount/contacts?tab=SERVICES&serviceName=' + vps.name }}"
                                    data-ng-class="{'btn-lg': viewMode === 'simple'}"
                                    class="btn btn-block btn-action">
                                     <i class="fa fa-2x icon- fa-users"></i>
-                                    <span data-i18n-static="contacts_management"></span>
+                                    <span data-translate="contacts_management"></span>
                                 </a>
                             </div>
                         </div>
@@ -467,6 +467,12 @@
                 <div class="tab-content">
                     <div class="tab-pane active platforms" data-ng-include="selectedTab && 'app/vps/' + toKebabCase(selectedTab) + '/vps-' + toKebabCase(selectedTab) + '.html'"></div>
                 </div>
+                <div data-ng-iclude="app/vps/vps-summary.html"></div>
+                <div data-ng-iclude="app/vps/vps-ip.html"></div>
+                <div data-ng-iclude="app/vps/vps-secondary-dns.html"></div>
+                <div data-ng-iclude="app/vps/vps-veeam.html"></div>
+                <div data-ng-iclude="app/vps/vps-backup-storage.html"></div>
+                <div data-ng-iclude="app/vps/vps-additional-disk.html"></div>
             </div>
         </div>
 

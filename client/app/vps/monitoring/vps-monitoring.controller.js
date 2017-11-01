@@ -1,8 +1,8 @@
 angular.module("managerApp")
 .controller("VpsMonitoringCtrl",
-['$scope', '$q', '$filter','Module.vps.services.Vps',
+['$scope', '$q', '$filter','Module.vps.services.Vps', '$translate',
 
-function ($scope,$q,$filter,Vps){
+function ($scope,$q,$filter,Vps, $translate){
     'use strict';
 
     $scope.monitoring = null;
@@ -19,7 +19,7 @@ function ($scope,$q,$filter,Vps){
             setTraficMonitoring();
         }).catch(err => {
             $scope.resetAction();
-            $scope.setMessage($scope.tr('vps_configuration_monitoring_fail'), err);
+            $scope.setMessage($translate.instant('vps_configuration_monitoring_fail'), err);
         }).finally(() => {
             $scope.loadingMonitoring = false;
         });
