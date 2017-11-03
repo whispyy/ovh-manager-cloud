@@ -25,7 +25,7 @@ class CloudProjectComputeInfrastructurePrivateNetworkDialogService {
         return this.Service.fetchRegions(serviceName);
     }
 
-    areRegionsLoading = function () {
+    areRegionsLoading () {
         return this.Service.areRegionsLoading();
     }
 
@@ -33,11 +33,11 @@ class CloudProjectComputeInfrastructurePrivateNetworkDialogService {
         return this.Service.fetchUrls();
     }
 
-    areUrlsLoading = function () {
+    areUrlsLoading () {
         return this.Service.areUrlsLoading();
     }
 
-    getUrls = function () {
+    getUrls () {
         return this.Service.getUrls;
     }
 

@@ -5,7 +5,7 @@
      * Temporary implementation of skeleton.
      */
     class CuiSkeletonController {
-        $onInit = () => {
+        $onInit () {
             this.width = this.width || `${Math.round(30 + Math.random() * 70)}%`;
         }
     }
