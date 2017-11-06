@@ -17,6 +17,7 @@ var config = require("./config/environment");
 // Setup server
 var app = express();
 var server = spdy.createServer(options, app);
+app = require("../build/dev-server").injectWebpackMiddleware(app);
 require("./config/express").default(app);
 require("./routes").default(app);
 

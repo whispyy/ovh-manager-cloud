@@ -52,7 +52,7 @@ export default function (app) {
         }));
     }
 
-    app.set("appPath", path.join(config.root, "client"));
+    app.set("appPath", path.join(config.root, "dist/webpack"));
 
     if (env === "production") {
         app.use(favicon(path.join(config.root, "client", "favicon.ico")));
