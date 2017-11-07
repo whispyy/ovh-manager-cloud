@@ -2,16 +2,15 @@ import ExtractTextPlugin from "extract-text-webpack-plugin";
 import RemcalcPlugin from "less-plugin-remcalc";
 import { resolve } from "./utils";
 
-const lessPlugins = {
-    plugins: [ RemcalcPlugin ]
-};
+const lessPlugins = [ RemcalcPlugin ];
 
 export default {
   rules (env = "development") {
     let loaders = [
       this.js(env),
       this.less(env),
-      this.scss(env)
+      this.scss(env),
+      this.assets(env)
     ];
 
     if (env === "development") {
@@ -89,7 +88,7 @@ export default {
   scss (env = "development") {
     if (env === "production") {
       return {
-        test: /\.less$/,
+        test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: [
@@ -101,7 +100,7 @@ export default {
       }
     } else {
       return {
-        test: /\.less$/,
+        test: /\.scss$/,
         use: [
           "style-loader",
           {
@@ -117,6 +116,23 @@ export default {
           }
         ]
       }
+    }
+  },
+
+  assets (env = "development") {
+    return {
+      test: /\.(woff2?|ttf|eot|otf|svg|png|jpg|gif)$/,
+      use: [
+        {
+          loader: 'url-loader',
+          options: {
+            limit: 10000,
+            outputPath: "assets/",
+            publicPath: "assets/",
+            name: '[sha512:hash:base64:8].[ext]'
+          }
+        }
+      ]
     }
   }
 }

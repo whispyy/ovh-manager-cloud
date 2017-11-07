@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import webpackConfig from './webpack.config.babel';
+import webpackConfig from './webpack.dev.babel';
 
 import app from '../server/index';
 

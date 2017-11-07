@@ -1,3 +1,5 @@
+import "../constants";
+
 angular.module("managerApp", [
     "ngCookies",
     "ngResource",

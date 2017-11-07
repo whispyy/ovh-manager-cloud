@@ -9,11 +9,11 @@ let devConfig = Object.assign({}, baseConfig, {
   module: {
     rules: loaders.rules('development')
   }
-})
+});
 
-devConfig.entry.app.push('./build/dev-client')
-devConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
-devConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin())
-devConfig.plugins.push(new FriendlyErrorsPlugin())
+devConfig.entry.app.push('./build/dev-client');
+devConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+devConfig.plugins.push(new webpack.NoEmitOnErrorsPlugin());
+devConfig.plugins.push(new FriendlyErrorsPlugin());
 
-export default devConfig
+export default devConfig;

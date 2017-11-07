@@ -15,5 +15,7 @@ prodConfig.plugins.push(new webpack.optimize.UglifyJsPlugin({
     warnings: false
   },
   comments: false
-}))
-prodConfig.plugins.push(new ExtractTextPlugin('style.[hash:8].css'))
+}));
+prodConfig.plugins.push(new ExtractTextPlugin("style.css"));
+
+export default prodConfig;

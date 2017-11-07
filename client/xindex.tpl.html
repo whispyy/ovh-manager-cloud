@@ -9,10 +9,17 @@
         <title>OVH - Cloud</title>
         <meta name="description" content="OVH - Cloud Manager">
         <meta name="viewport" content="width=device-width">
-
-        <% for (var css in htmlWebpackPlugin.files.css) { %>
-        <link href="<%= htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-        <% } %>
+        <!-- build:css(client) app/vendor.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- injector:assetscss -->
+        <!-- endinjector:assetscss -->
+        <!-- endbuild -->
+        <!-- build:css({.tmp,client}) app/app.css -->
+          <link rel="stylesheet" href="app/app.css">
+          <!-- injector:css -->
+          <!-- endinjector -->
+        <!-- endbuild -->
       </head>
       <body
         data-ng-app="managerApp"
@@ -38,7 +45,7 @@
                 <!-- CONTENT -->
                 <div id="content" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2">
                     <div data-ng-controller="MeAlertsCtrl as MeAlertsCtrl">
-                        <cui-message-container data-messages="MeAlertsCtrl.messages"
+                        <cui-message-container data-messages="MeAlertsCtrl.messages" 
                                                data-grouped-types="['warning','error']"
                                                data-dismissable-types="['warning']"></cui-message-container>
                     </div>
@@ -60,8 +67,14 @@
             </div>
         </div>
 
-        <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-        <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
-        <% } %>
+        <!-- build:js({client,node_modules}) app/vendor.js -->
+            <!-- bower:js -->
+            <!-- endbower -->
+        <!-- endbuild -->
+        <!-- build:js(.tmp) app/app.js -->
+            <script src="app/app.js"></script>
+            <!-- injector:js -->
+            <!-- endinjector -->
+        <!-- endbuild -->
     </body>
 </html>

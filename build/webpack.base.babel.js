@@ -1,4 +1,5 @@
 import CopyWebpackPlugin from "copy-webpack-plugin";
+import ExtractTextPlugin from "extract-text-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import RemcalcPlugin from "less-plugin-remcalc";
 import path from "path"
@@ -13,9 +14,6 @@ export default {
       "./client/index.js",
       "./client/app/app.less",
       "./client/app/app.scss"
-    ],
-    vendor: [
-      "./client/vendor.js"
     ]
   },
   output: {
@@ -30,55 +28,55 @@ export default {
       resolve("node_modules")
     ]
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: "babel-loader",
-        include: [
-          resolve("client")
-        ]
-      }, {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            "css-loader",
-            "resolve-url-loader",
-            "sass-loader"
-          ]
-        })
-      }, {
-        test: /\.less$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: [
-            "css-loader",
-            "resolve-url-loader",
-            {
-              loader: "less-loader",
-              options: {
-                plugins: [ RemcalcPlugin ]
-              }
-            }
-          ]
-        })
-      }, {
-        test: /\.(woff2?|ttf|eot|otf|svg|png|jpg|gif)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 10000,
-              outputPath: "assets/",
-              publicPath: "assets/",
-              name: '[sha512:hash:base64:8].[ext]'
-            }
-          }
-        ]
-      }
-    ]
-  },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       loader: "babel-loader",
+  //       include: [
+  //         resolve("client")
+  //       ]
+  //     }, {
+  //       test: /\.scss$/,
+  //       use: ExtractTextPlugin.extract({
+  //         fallback: "style-loader",
+  //         use: [
+  //           "css-loader",
+  //           "resolve-url-loader",
+  //           "sass-loader"
+  //         ]
+  //       })
+  //     }, {
+  //       test: /\.less$/,
+  //       use: ExtractTextPlugin.extract({
+  //         fallback: "style-loader",
+  //         use: [
+  //           "css-loader",
+  //           "resolve-url-loader",
+  //           {
+  //             loader: "less-loader",
+  //             options: {
+  //               plugins: [ RemcalcPlugin ]
+  //             }
+  //           }
+  //         ]
+  //       })
+  //     }, {
+  //       test: /\.(woff2?|ttf|eot|otf|svg|png|jpg|gif)$/,
+  //       use: [
+  //         {
+  //           loader: 'url-loader',
+  //           options: {
+  //             limit: 10000,
+  //             outputPath: "assets/",
+  //             publicPath: "assets/",
+  //             name: '[sha512:hash:base64:8].[ext]'
+  //           }
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // },
 
   plugins: [
     new CopyWebpackPlugin([
@@ -112,6 +110,15 @@ export default {
         to: path.join(resolve(dist), "i18n")
       }
     ]),
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      inject: false,
+      template: resolve("client/index.tpl.html"),
+      filename: "index.html",
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      }
+    })
   ]
 }
