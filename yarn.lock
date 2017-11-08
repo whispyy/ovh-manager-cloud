@@ -636,6 +636,14 @@ babel-messages@^6.23.0:
   dependencies:
     babel-runtime "^6.22.0"
 
+babel-plugin-angularjs-annotate@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/babel-plugin-angularjs-annotate/-/babel-plugin-angularjs-annotate-0.8.2.tgz#7f9a37fbb7511668e836cb91a2e43e98e12f9ed9"
+  dependencies:
+    babel-code-frame "^6.26.0"
+    babel-types "^6.26.0"
+    simple-is "~0.2.0"
+
 babel-plugin-check-es2015-constants@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-check-es2015-constants/-/babel-plugin-check-es2015-constants-6.22.0.tgz#35157b101426fd2ffd3da3f75c7d1e91835bbf8a"
@@ -2891,6 +2899,10 @@ eventemitter3@1.x.x:
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
+
+eventsource-polyfill@^0.9.6:
+  version "0.9.6"
+  resolved "https://registry.yarnpkg.com/eventsource-polyfill/-/eventsource-polyfill-0.9.6.tgz#10e0d187f111b167f28fdab918843ce7d818f13c"
 
 evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   version "1.0.3"
@@ -5674,6 +5686,10 @@ merge@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
+messenger@HubSpot/messenger#~1.4.1:
+  version "1.4.2"
+  resolved "https://codeload.github.com/HubSpot/messenger/tar.gz/a3df9a62a1677af45fb130e226a6cbf98c0cecf0"
+
 method-override@^2.3.5:
   version "2.3.10"
   resolved "https://registry.yarnpkg.com/method-override/-/method-override-2.3.10.tgz#e3daf8d5dee10dd2dce7d4ae88d62bbee77476b4"
@@ -5818,9 +5834,9 @@ moment-duration-format@^1.3.0:
   version "2.19.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.19.1.tgz#56da1a2d1cbf01d38b7e1afc31c10bcfa1929167"
 
-moment@~2.6.0:
-  version "2.6.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.6.0.tgz#0765b72b841dd213fa91914c0f6765122719f061"
+moment@~2.8.0:
+  version "2.8.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.8.4.tgz#cc174aabb19223efff5699a9467805a2789838bf"
 
 monocle@0.1.48:
   version "0.1.48"
@@ -6390,6 +6406,10 @@ ovh-angular-otrs@^3.0.0:
 "ovh-angular-pagination-front@https://github.com/ovh-ux/ovh-angular-pagination-front.git#^5.1.0":
   version "5.0.0"
   resolved "https://github.com/ovh-ux/ovh-angular-pagination-front.git#7b21072dfd25a8b1a5aece207a8e2f27e756b86c"
+
+ovh-angular-proxy-request@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/ovh-angular-proxy-request/-/ovh-angular-proxy-request-0.1.0.tgz#36cc7cd5509fc85769b373e56019124d36bf0599"
 
 ovh-angular-q-allsettled@^0.3.1:
   version "0.3.1"

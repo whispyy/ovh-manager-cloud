@@ -3,6 +3,7 @@ import RemcalcPlugin from "less-plugin-remcalc";
 import { resolve } from "./utils";
 
 const lessPlugins = [ RemcalcPlugin ];
+const exclude = [/node_modules/];
 
 export default {
   rules (env = "development") {
@@ -13,9 +14,9 @@ export default {
       this.assets(env)
     ];
 
-    if (env === "development") {
-      loaders.push(this.eslint(env));
-    }
+    // if (env === "development") {
+    //   loaders.push(this.eslint(env));
+    // }
 
     return loaders;
   },
@@ -26,8 +27,7 @@ export default {
       loader: "eslint-loader",
       enforce: 'pre',
       include: [
-        resolve('src'),
-        resolve('test')
+        resolve('client')
       ],
       options: {
         formatter: require('eslint-friendly-formatter')
@@ -38,7 +38,9 @@ export default {
   js (env = "development") {
     return {
       test: /\.js$/,
-      loader: "babel-loader",
+      use: [
+        "babel-loader"
+      ],
       include: [
         resolve("client")
       ]

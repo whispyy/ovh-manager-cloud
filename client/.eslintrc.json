@@ -29,5 +29,8 @@
             },
             "SwitchCase": 1
         }]
+    },
+    "globals": {
+        "angular": true
     }
 }

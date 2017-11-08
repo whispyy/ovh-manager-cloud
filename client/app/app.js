@@ -1,4 +1,4 @@
-import "../constants";
+// import "../vendor";
 
 angular.module("managerApp", [
     "ngCookies",
@@ -128,3 +128,5 @@ angular.module("managerApp", [
             off();
         });
     });
+
+require("../constants");

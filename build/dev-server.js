@@ -40,7 +40,7 @@ function injectWebpackMiddleware (app) {
 
   devMiddleware.waitUntilValid(() => {
     console.log('> Listening at localhost:9000\n')
-  })
+  });
 
   return app
 }

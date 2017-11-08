@@ -24,6 +24,8 @@ class CloudProjectComputeCtrl {
 
         this.init();
         this.loadMessage();
+
+        alert("test");
     }
 
     loadMessage () {

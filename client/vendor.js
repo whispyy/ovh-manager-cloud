@@ -1,4 +1,3 @@
-import "jquery";
 import "angular";
 import "ovh-ui-angular";
 import "angular-animate";
@@ -17,9 +16,9 @@ import "angular-ui-router";
 import "angular-ui-sortable";
 import "angular-ui-validate";
 // import "animate.css";
-import "bootstrap";
+// import "bootstrap";
 // import "bootstrap-additions";
-import "bs4";
+// import "bs4";
 import "d3";
 import "es5-shim";
 // import "flag-icon-css";
@@ -29,10 +28,16 @@ import "jquery.scrollto";
 import "json3";
 import "lodash";
 import "matchmedia-ng";
-import "moment";
+
+// ProvidePlugin
+// import "moment";
+
 import "ng-slide-down";
 import "urijs";
-import "validator";
+
+// ProvidePlugin
+// import "validator";
+
 // import "ovh-ui-kit";
 import "ovh-angular-a-disabled";
 import "ng-at-internet";

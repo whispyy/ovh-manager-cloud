@@ -1,5 +1,5 @@
 /* eslint-disable */
-// require('eventsource-polyfill');
+require("eventsource-polyfill");
 const hotClient = require('webpack-hot-middleware/client?reload=true');
 
 hotClient.subscribe(function (event) {

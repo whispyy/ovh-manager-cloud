@@ -1,8 +1,8 @@
 import CopyWebpackPlugin from "copy-webpack-plugin";
 import ExtractTextPlugin from "extract-text-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import RemcalcPlugin from "less-plugin-remcalc";
-import path from "path"
+import path from "path";
+import webpack from "webpack";
 
 import { resolve } from "./utils";
 
@@ -10,15 +10,103 @@ const dist = "dist/webpack";
 
 export default {
   entry: {
+    // vendor: [
+    //   "./client/vendor.js"
+    // ],
     app: [
       "./client/index.js",
       "./client/app/app.less",
       "./client/app/app.scss"
+    ],
+    vendor: [
+      // ProvidePlugin
+      // "jquery",
+      "angular",
+      "ovh-ui-angular",
+      "angular-animate",
+      "angular-ui-bootstrap",
+      "angular-cookies",
+      "angular-dynamic-locale",
+      // "angular-i18n",
+      "angular-messages",
+      "angular-moment",
+      "angular-resource",
+      "angular-sanitize",
+      "angular-strap",
+      "angular-translate",
+      "angular-translate-loader-partial",
+      "angular-ui-router",
+      "angular-ui-sortable",
+      "angular-ui-validate",
+      // "animate.css";
+      // "bootstrap";
+      // "bootstrap-additions";
+      // "bs4",
+      "d3",
+      "es5-shim",
+      // "flag-icon-css";
+      // "font-awesome",
+      "jquery.cookie",
+      "jquery.scrollto",
+      "json3",
+      "lodash",
+      "matchmedia-ng",
+
+      // ProvidePlugin
+      // "moment";,
+      "ng-slide-down",
+      "urijs",
+
+      // ProvidePlugin
+      // "validator";
+
+      // "ovh-ui-kit",
+      "ovh-angular-a-disabled",
+      "ng-at-internet",
+      "at-internet-ui-router-plugin",
+      "ovh-angular-toggleclass",
+      "ovh-jquery-ui-draggable-ng",
+
+      // FIXME: bad main entr,
+      "ovh-angular-sidebar-menu/dist/ovh-angular-sidebar-menu.js",
+      "ovh-angular-jquery-ui-droppable",
+      "ovh-angular-manager-navbar",
+      "ovh-angular-actions-menu",
+      "ovh-angular-responsive-popover",
+      "ovh-angular-jsplumb",
+      "ovh-angular-checkbox-table",
+      "ovh-common-style",
+      // "ovh-manager-webfont",
+      "ovh-angular-form-flat/dist/ovh-angular-form-flat.js",
+      "ovh-angular-q-allsettled",
+      "ovh-angular-slider",
+      "ovh-angular-stop-event",
+      "ovh-angular-user-pref",
+      "ovh-angular-toaster",
+      "ovh-angular-browser-alert",
+      "ovh-angular-pagination-front",
+      "ovh-angular-responsive-page-switcher",
+      "ovh-angular-responsive-tabs",
+      "ovh-angular-sso-auth",
+      "ovh-angular-sso-auth-modal-plugin",
+      "ovh-angular-swimming-poll",
+      "ovh-angular-doc-url",
+      "ovh-angular-module-status",
+      "ovh-angular-otrs",
+      "ovh-api-services",
+      "angular-chart.js",
+      "ovh-angular-list-view",
+      "jsurl",
+      "moment-duration-format",
+
+      // Dependencies
+      "messenger/build/js/messenger.js",
+      "ovh-angular-proxy-request"
     ]
   },
   output: {
     path: resolve(dist),
-    filename: "[name].js",
+    filename: "[name].[hash].js",
     publicPath: "/"
   },
   resolve: {
@@ -28,57 +116,20 @@ export default {
       resolve("node_modules")
     ]
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.js$/,
-  //       loader: "babel-loader",
-  //       include: [
-  //         resolve("client")
-  //       ]
-  //     }, {
-  //       test: /\.scss$/,
-  //       use: ExtractTextPlugin.extract({
-  //         fallback: "style-loader",
-  //         use: [
-  //           "css-loader",
-  //           "resolve-url-loader",
-  //           "sass-loader"
-  //         ]
-  //       })
-  //     }, {
-  //       test: /\.less$/,
-  //       use: ExtractTextPlugin.extract({
-  //         fallback: "style-loader",
-  //         use: [
-  //           "css-loader",
-  //           "resolve-url-loader",
-  //           {
-  //             loader: "less-loader",
-  //             options: {
-  //               plugins: [ RemcalcPlugin ]
-  //             }
-  //           }
-  //         ]
-  //       })
-  //     }, {
-  //       test: /\.(woff2?|ttf|eot|otf|svg|png|jpg|gif)$/,
-  //       use: [
-  //         {
-  //           loader: 'url-loader',
-  //           options: {
-  //             limit: 10000,
-  //             outputPath: "assets/",
-  //             publicPath: "assets/",
-  //             name: '[sha512:hash:base64:8].[ext]'
-  //           }
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // },
-
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
+    }),
+    new webpack.ProvidePlugin({
+      moment: "moment",
+      validator: "validator",
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    }),
     new CopyWebpackPlugin([
       {
         context: resolve("client"),
@@ -109,16 +160,6 @@ export default {
         from: `angular-i18n/angular-locale_*-*.js`,
         to: path.join(resolve(dist), "i18n")
       }
-    ]),
-    new HtmlWebpackPlugin({
-      inject: false,
-      template: resolve("client/index.tpl.html"),
-      filename: "index.html",
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      }
-    })
+    ])
   ]
 }
