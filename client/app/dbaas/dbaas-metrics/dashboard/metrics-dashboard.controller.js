@@ -1,6 +1,6 @@
 (() => {
     class MetricsDashboardCtrl {
-        constructor ($scope, $stateParams, $q, $translate, CloudMessage, ControllerHelper, MetricService, METRICS_ENDPOINTS, RegionService, SidebarMenu) {
+        constructor ($scope, $stateParams, $q, $translate, CloudMessage, ControllerHelper, MetricActionService, MetricService, METRICS_ENDPOINTS, RegionService, SidebarMenu) {
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.$q = $q;
@@ -8,6 +8,7 @@
             this.serviceName = $stateParams.serviceName;
             this.ControllerHelper = ControllerHelper;
             this.CloudMessage = CloudMessage;
+            this.MetricActionService = MetricActionService;
             this.MetricService = MetricService;
             this.graphs = METRICS_ENDPOINTS.graphs;
             this.RegionService = RegionService;
@@ -98,6 +99,27 @@
                     text: this.$translate.instant("common_manage"),
                     href: this.ControllerHelper.navigation.getUrl("contacts", { serviceName: this.serviceName }),
                     isAvailable: () => true
+                },
+                changeName: {
+                    text: this.$translate.instant("common_edit"),
+                    callback: () => this.ControllerHelper.modal.showNameChangeModal({
+                        serviceName: this.serviceName,
+                        displayName: this.configuration.description
+                    })
+                        .then(newDisplayName => this.MetricService.setServiceDescription(this.serviceName, newDisplayName).then(() => newDisplayName))
+                        .then(newDisplayName => {
+                            this.configuration.description = newDisplayName;
+                            this.$scope.$emit("changeDescription", newDisplayName);
+
+                            const menuItem = this.SidebarMenu.getItemById(this.serviceName);
+                            menuItem.title = newDisplayName;
+                        }),
+                    isAvailable: () => !this.loading.service
+                },
+                changeOffer: {
+                    text: this.$translate.instant("common_edit"),
+                    callback: () => this.MetricActionService.openOfferEditModal(this.serviceName, this.plan.offer),
+                    isAvailable: () => !this.loading.plan
                 }
             };
         }
@@ -123,37 +145,12 @@
                 return yellow;
             }
             return green;
-
         }
 
         transformRegion (regionCode) {
             const region = this.RegionService.getRegion(regionCode);
             return { name: region.microRegion.text, country: region.country, flag: region.icon };
         }
-
-        showEditName (desc) {
-            this.ControllerHelper.modal.showModal({
-                modalConfig: {
-                    templateUrl: "app/dbaas/dbaas-metrics/dashboard/edit/metrics-dashboard-edit.html",
-                    controller: "MetricsDashboardEditCtrl",
-                    controllerAs: "$ctrl",
-                    resolve: {
-                        metricsType: () => "name",
-                        metricsValue: () => desc,
-                        serviceName: () => this.serviceName
-                    }
-                },
-                successHandler: result => {
-                    this.configuration.description = result.data.description;
-                    this.$scope.$emit("changeDescription", this.configuration.description);
-
-                    const menuItem = this.SidebarMenu.getItemById(this.serviceName);
-                    menuItem.title = this.configuration.description;
-                }
-            });
-
-        }
-
     }
 
     angular.module("managerApp").controller("MetricsDashboardCtrl", MetricsDashboardCtrl);
