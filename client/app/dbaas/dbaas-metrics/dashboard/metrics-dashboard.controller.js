@@ -1,6 +1,6 @@
 (() => {
     class MetricsDashboardCtrl {
-        constructor ($scope, $stateParams, $q, $translate, CloudMessage, ControllerHelper, MetricActionService, MetricService, METRICS_ENDPOINTS, RegionService, SidebarMenu) {
+        constructor ($scope, $stateParams, $q, $translate, CloudMessage, ControllerHelper, MetricActionService, MetricsOfferService, MetricService, METRICS_ENDPOINTS, RegionService, SidebarMenu) {
             this.$scope = $scope;
             this.$stateParams = $stateParams;
             this.$q = $q;
@@ -9,6 +9,7 @@
             this.ControllerHelper = ControllerHelper;
             this.CloudMessage = CloudMessage;
             this.MetricActionService = MetricActionService;
+            this.MetricsOfferService = MetricsOfferService;
             this.MetricService = MetricService;
             this.graphs = METRICS_ENDPOINTS.graphs;
             this.RegionService = RegionService;
@@ -30,6 +31,11 @@
             this.loading.consumption = true;
             this.loading.plan = true;
             this.initTiles();
+
+            this.offerUpgradeOptions = this.ControllerHelper.request.getArrayLoader({
+                loaderFunction: () => this.MetricsOfferService.getOfferUpgradeOptions(this.serviceName)
+            });
+            this.offerUpgradeOptions.load();
         }
 
         initTiles () {
@@ -119,7 +125,9 @@
                 changeOffer: {
                     text: this.$translate.instant("common_edit"),
                     callback: () => this.MetricActionService.openOfferEditModal(this.serviceName, this.plan.offer),
-                    isAvailable: () => !this.loading.plan
+                    isAvailable: () => {
+                        return !this.offerUpgradeOptions.loading && !this.offerUpgradeOptions.hasErrors && this.offerUpgradeOptions.data.length > 0;
+                    }
                 }
             };
         }
