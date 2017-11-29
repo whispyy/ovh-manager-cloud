@@ -15,6 +15,7 @@
             </div>
         </div>
         <div class="settings">
+            <label> Regions :</label>
             <select ng-if="!OpenstackTerminalCtl.regions.loading"
                 class="form-control"
                 ng-options="region as region for region in OpenstackTerminalCtl.regions.data track by region"
@@ -27,7 +28,6 @@
                 ng-repeat="(label,action) in OpenstackTerminalCtl.actions track by label"
                 ng-click="OpenstackTerminalCtl.Service.sendAction(action, OpenstackTerminalCtl.region)">{{label}}</button>
         </div>
-
         <div class="hterm">
             <div ng-if="OpenstackTerminalCtl.session.loading">
                 <oui-loader size="m" class="d-inline-block"></oui-loader>

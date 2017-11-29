@@ -39,11 +39,9 @@ class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
     }
 
     $onInit () {
-
         this.CloudMessage.unSubscribe("iaas.pci-project.compute.infrastructure");
         this.messageHandler = this.CloudMessage.subscribe("iaas.pci-project.compute.infrastructure", { onMessage: () => this.refreshMessages() });
-        this.session.load();
-        this.regions.load();
+        this.load();
     }
 
     refreshMessages () {
@@ -53,6 +51,7 @@ class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
     clickBar () {
         if (this.minimized) {
             this.minimized = false;
+            this.load();
             this.savePrefs();
         }
     }
@@ -66,9 +65,22 @@ class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
     maximize () {
         this.maximized = !this.maximized;
         this.minimized = false;
+        this.load();
         this.savePrefs();
     }
 
+    load () {
+        if (this.minimized) {
+            return;
+        }
+
+        if (!this.session.loading && (this.session.hasErrors || _.isEmpty(this.session.data))) {
+            this.session.load();
+        }
+        if (!this.regions.loading && (this.regions.hasErrors || _.isEmpty(this.regions.data))) {
+            this.regions.load();
+        }
+    }
     savePrefs () {
         sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.minimized", this.minimized);
         sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.maximized", this.maximized);

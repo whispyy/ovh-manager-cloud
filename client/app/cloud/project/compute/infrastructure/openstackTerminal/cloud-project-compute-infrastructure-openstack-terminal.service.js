@@ -20,13 +20,13 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
                 }
                 return this.initWebSocket(session, term);
             })
-            .catch(this.ServiceHelper.errorHandler("openstack_terminal_session_error"));
+            .catch(this.ServiceHelper.errorHandler("cpci_openstack_terminal_session_error"));
     }
 
     getRegions (serviceName) {
         return this.OvhApiCloudProjectRegion.Lexi().query({ serviceName }).$promise
             .then(regions => _.flatten([this.REGION_ALL, regions]))
-            .catch(this.ServiceHelper.errorHandler("openstack_terminal_regions_error"));
+            .catch(this.ServiceHelper.errorHandler("cpci_openstack_terminal_regions_error"));
     }
 
     sendAction (action, region) {
@@ -66,7 +66,7 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
 
         this.ws.onclose = function () {
             defer.reject();
-            self.ServiceHelper.errorHandler("openstack_terminal_socket_closed");
+            self.ServiceHelper.errorHandler("cpci_openstack_terminal_socket_closed");
         };
         return defer.promise;
     }
