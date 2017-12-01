@@ -40,7 +40,7 @@ angular.module("managerApp")
                     "cloud/project/compute/infrastructure/privateNetwork/delete",
                     "cloud/project/delete",
                     "cloud/project/rename",
-                    "cloud/project/compute/infrastructure/openstackTerminal"
+                    "cloud/project/compute/infrastructure/openstackClient"
                 ]
             });
     });

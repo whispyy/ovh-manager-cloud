@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<translations>
-   <translation id="cpci_openstack_terminal_session_error">Impossible de charger le terminal : {{message}}</translation>
-  <translation id="cpci_openstack_terminal_regions_error">Impossible de charger la liste des regions : {{message}}</translation>
-   <translation id="cpci_openstack_terminal_session_closed">La session a été interrompue.</translation>
-</translations>

@@ -66,7 +66,7 @@ angular.module("managerApp").controller("CloudProjectComputeInfrastructureCtrl",
             openUnlinkVolume : false
         };
 
-        this.openstackTerminalOpen = true;
+        this.openstackClientOpen = true;
 
         this.importedIpFailoverPending = [];   // List of pending import IPFO
 

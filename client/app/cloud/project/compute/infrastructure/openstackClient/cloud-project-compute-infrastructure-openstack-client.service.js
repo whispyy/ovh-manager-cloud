@@ -1,7 +1,7 @@
-class CloudProjectComputeInfrastructureOpenstackTerminalService {
-    constructor ($q, $stateParams, OvhApiCloudProjectOpenstackTerminal, OvhApiCloudProjectRegion, CloudMessage, ServiceHelper) {
+class CloudProjectComputeInfrastructureOpenstackClientService {
+    constructor ($q, $stateParams, OvhApiCloudProjectOpenstackClient, OvhApiCloudProjectRegion, CloudMessage, ServiceHelper) {
         this.$q = $q;
-        this.OvhApiCloudProjectOpenstackTerminal = OvhApiCloudProjectOpenstackTerminal;
+        this.OvhApiCloudProjectOpenstackClient = OvhApiCloudProjectOpenstackClient;
         this.OvhApiCloudProjectRegion = OvhApiCloudProjectRegion;
         this.CloudMessage = CloudMessage;
         this.ServiceHelper = ServiceHelper;
@@ -13,20 +13,20 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
     }
 
     getSession ({ serviceName, term }) {
-        return this.OvhApiCloudProjectOpenstackTerminal.Lexi().post({ serviceName }).$promise
+        return this.OvhApiCloudProjectOpenstackClient.Lexi().post({ serviceName }).$promise
             .then(session => {
                 if (!term) {
                     return session;
                 }
                 return this.initWebSocket(session, term);
             })
-            .catch(this.ServiceHelper.errorHandler("cpci_openstack_terminal_session_error"));
+            .catch(this.ServiceHelper.errorHandler("cpci_openstack_client_session_error"));
     }
 
     getRegions (serviceName) {
         return this.OvhApiCloudProjectRegion.Lexi().query({ serviceName }).$promise
             .then(regions => _.flatten([this.REGION_ALL, regions]))
-            .catch(this.ServiceHelper.errorHandler("cpci_openstack_terminal_regions_error"));
+            .catch(this.ServiceHelper.errorHandler("cpci_openstack_client_regions_error"));
     }
 
     sendAction (action, region) {
@@ -39,7 +39,6 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
         this.ws = new WebSocket(session.websocket);
         this.ws.onopen = () => {
             defer.resolve(session);
-            self.send("\n");
         };
 
         this.ws.onmessage = event => {
@@ -66,7 +65,7 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
 
         this.ws.onclose = function () {
             defer.reject();
-            self.ServiceHelper.errorHandler("cpci_openstack_terminal_socket_closed");
+            self.ServiceHelper.errorHandler("cpci_openstack_client_socket_closed");
         };
         return defer.promise;
     }
@@ -90,4 +89,4 @@ class CloudProjectComputeInfrastructureOpenstackTerminalService {
 }
 
 
-angular.module("managerApp").service("CloudProjectComputeInfrastructureOpenstackTerminalService", CloudProjectComputeInfrastructureOpenstackTerminalService);
+angular.module("managerApp").service("CloudProjectComputeInfrastructureOpenstackClientService", CloudProjectComputeInfrastructureOpenstackClientService);

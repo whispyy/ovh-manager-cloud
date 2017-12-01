@@ -1,9 +1,9 @@
-class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
-    constructor ($q, $stateParams, $translate, OvhApiCloudProjectOpenstackTerminal, CloudProjectComputeInfrastructureOpenstackTerminalService, OvhApiCloudProjectRegion, CloudMessage, ControllerHelper, hterm) {
+class CloudProjectComputeInfrastructureOpenstackClientCtrl {
+    constructor ($q, $stateParams, $translate, OvhApiCloudProjectOpenstackClient, CloudProjectComputeInfrastructureOpenstackClientService, OvhApiCloudProjectRegion, CloudMessage, ControllerHelper, hterm) {
         this.$q = $q;
         this.$translate = $translate;
-        this.OvhApiCloudProjectOpenstackTerminal = OvhApiCloudProjectOpenstackTerminal;
-        this.Service = CloudProjectComputeInfrastructureOpenstackTerminalService;
+        this.OvhApiCloudProjectOpenstackClient = OvhApiCloudProjectOpenstackClient;
+        this.Service = CloudProjectComputeInfrastructureOpenstackClientService;
         this.OvhApiCloudProjectRegion = OvhApiCloudProjectRegion;
         this.CloudMessage = CloudMessage;
         this.ControllerHelper = ControllerHelper;
@@ -12,8 +12,8 @@ class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
         this.term = new hterm.Terminal();
         this.messages = [];
         this.region = this.Service.REGION_ALL;
-        this.minimized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.minimized") !== "false";
-        this.maximized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.maximized") === "true";
+        this.minimized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.minimized") !== "false";
+        this.maximized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.maximized") === "true";
         this.actions = {
             help: "help",
             catalog: "catalog list",
@@ -82,10 +82,10 @@ class CloudProjectComputeInfrastructureOpenstackTerminalCtrl {
         }
     }
     savePrefs () {
-        sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.minimized", this.minimized);
-        sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackTerminalCtrl.maximized", this.maximized);
+        sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.minimized", this.minimized);
+        sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.maximized", this.maximized);
     }
 }
 
 
-angular.module("managerApp").controller("CloudProjectComputeInfrastructureOpenstackTerminalCtrl", CloudProjectComputeInfrastructureOpenstackTerminalCtrl);
+angular.module("managerApp").controller("CloudProjectComputeInfrastructureOpenstackClientCtrl", CloudProjectComputeInfrastructureOpenstackClientCtrl);

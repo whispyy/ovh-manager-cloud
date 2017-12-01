@@ -1,0 +1,47 @@
+<div id="openstackClient" data-ng-controller="CloudProjectComputeInfrastructureOpenstackClientCtrl as OpenstackClientCtl" >
+    <div class="margin"></div>
+    <div class="terminal col-md-offset-2 col-sm-offset-3"
+     data-ng-class="{ maximized : OpenstackClientCtl.maximized, minimized : OpenstackClientCtl.minimized }"
+     >
+        <div class="header" data-ng-click="OpenstackClientCtl.clickBar()">
+            <div class="title" data-translate="cpci_openstack_client">
+            </div>
+            <div class="buttons">
+                <button class="no-style" type="button"
+                 data-ng-if="!OpenstackClientCtl.minimized"
+                 data-ng-click="OpenstackClientCtl.minimize();$event.stopPropagation()"><i class="fa fa-window-minimize"></i></button>
+                <button class="no-style" type="button" data-ng-click="OpenstackClientCtl.maximize();$event.stopPropagation()"><i class="fa fa-window-maximize"></i></button>
+            </div>
+        </div>
+        <div class="settings">
+            <label data-translate="cpci_openstack_client_regions"></label>
+            <select ng-if="!OpenstackClientCtl.regions.loading"
+                class="form-control"
+                ng-options="region as region for region in OpenstackClientCtl.regions.data track by region"
+                ng-model="OpenstackClientCtl.region"
+                >
+            </select>
+            <oui-loader ng-show="OpenstackClientCtl.regions.loading" size="s" class="d-inline-block"></oui-loader>
+            <label data-translate="cpci_openstack_client_commands"></label>
+            <button type="button" class="btn btn-primary"
+                ng-repeat="(label,action) in OpenstackClientCtl.actions track by label"
+                ng-click="OpenstackClientCtl.Service.sendAction(action, OpenstackClientCtl.region)">{{label}}</button>
+        </div>
+        <div class="hterm">
+            <div ng-if="OpenstackClientCtl.session.loading">
+                <oui-loader size="m" class="d-inline-block"></oui-loader>
+            </div>
+            <cui-message-container
+                data-messages="OpenstackClientCtl.messages">
+            </cui-message-container>
+            <div
+                ng-show="!OpenstackClientCtl.session.loading && !OpenstackClientCtl.session.hasErrors && !OpenstackClientCtl.regions.hasErrors"
+                hterm="hterm"
+                send-data="OpenstackClientCtl.Service.send(data, OpenstackClientCtl.region)"
+                send-config="OpenstackClientCtl.Service.setConfig(config)"
+                term="OpenstackClientCtl.term"
+                >
+            </div>
+        </div>
+    </div>
+</div>
