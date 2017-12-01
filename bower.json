@@ -98,7 +98,7 @@
     "ovh-common-style": "^3.2.2",
     "lodash": "~3.10.1",
     "ovh-angular-actions-menu": "^2.0.0",
-    "ovh-api-services": "#feature/cloudOpenstackTerminal",
+    "ovh-api-services": "feature/cloudOpenstackTerminal",
     "ng-at-internet": "^3.0.0"
   },
   "overrides": {
