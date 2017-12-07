@@ -17,15 +17,19 @@
             <label data-translate="cpci_openstack_client_regions"></label>
             <select ng-if="!OpenstackClientCtl.regions.loading"
                 class="form-control"
-                ng-options="region as region for region in OpenstackClientCtl.regions.data track by region"
+                ng-change="OpenstackClientCtl.Service.setRegion(OpenstackClientCtl.region)"
                 ng-model="OpenstackClientCtl.region"
                 >
+                    <option value="{{OpenstackClientCtl.emptyOption}}" hidden data-translate="cpci_openstack_client_select_region"></option>
+                    <option ng-repeat="region in OpenstackClientCtl.regions.data track by region" value="{{region}}">
+                        {{region}}
+                    </option>
             </select>
             <oui-loader ng-show="OpenstackClientCtl.regions.loading" size="s" class="d-inline-block"></oui-loader>
             <label data-translate="cpci_openstack_client_commands"></label>
             <button type="button" class="btn btn-primary"
                 ng-repeat="(label,action) in OpenstackClientCtl.actions track by label"
-                ng-click="OpenstackClientCtl.Service.sendAction(action, OpenstackClientCtl.region)">{{label}}</button>
+                ng-click="OpenstackClientCtl.Service.sendAction(action)">{{label}}</button>
         </div>
         <div class="hterm">
             <div ng-if="OpenstackClientCtl.session.loading">
@@ -37,7 +41,7 @@
             <div
                 ng-show="!OpenstackClientCtl.session.loading && !OpenstackClientCtl.session.hasErrors && !OpenstackClientCtl.regions.hasErrors"
                 hterm="hterm"
-                send-data="OpenstackClientCtl.Service.send(data, OpenstackClientCtl.region)"
+                send-data="OpenstackClientCtl.Service.send(data)"
                 send-config="OpenstackClientCtl.Service.setConfig(config)"
                 term="OpenstackClientCtl.term"
                 >

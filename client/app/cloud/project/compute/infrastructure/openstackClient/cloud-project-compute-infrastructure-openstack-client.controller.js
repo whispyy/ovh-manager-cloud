@@ -11,18 +11,20 @@ class CloudProjectComputeInfrastructureOpenstackClientCtrl {
         this.serviceName = $stateParams.projectId;
         this.term = new hterm.Terminal();
         this.messages = [];
-        this.region = this.Service.REGION_ALL;
+        this.emptyOption = "emptyOption";
+        this.region = this.emptyOption;
         this.minimized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.minimized") !== "false";
         this.maximized = sessionStorage.getItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.maximized") === "true";
         this.actions = {
-            help: "help",
-            catalog: "catalog list",
-            server: "server list",
-            image: "image list",
-            flavor: "flavor list",
-            volume: "volume list",
-            network: "network list",
-            subnet: "subnet list"
+            help: "openstack help | less",
+            catalog: "openstack catalog list",
+            server: "openstack server list",
+            image: "openstack image list",
+            flavor: "openstack flavor list",
+            volume: "openstack volume list",
+            network: "openstack network list",
+            subnet: "openstack subnet list",
+            "create server": "create-server.sh",
         };
 
 

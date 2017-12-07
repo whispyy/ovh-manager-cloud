@@ -6,10 +6,7 @@ class CloudProjectComputeInfrastructureOpenstackClientService {
         this.CloudMessage = CloudMessage;
         this.ServiceHelper = ServiceHelper;
 
-        this.REGION_ALL = "All";
-        this.region = this.REGION_ALL;
         this.ws = null;
-
     }
 
     getSession ({ serviceName, term }) {
@@ -25,19 +22,22 @@ class CloudProjectComputeInfrastructureOpenstackClientService {
 
     getRegions (serviceName) {
         return this.OvhApiCloudProjectRegion.Lexi().query({ serviceName }).$promise
-            .then(regions => _.flatten([this.REGION_ALL, regions]))
             .catch(this.ServiceHelper.errorHandler("cpci_openstack_client_regions_error"));
     }
 
-    sendAction (action, region) {
-        this.send(`openstack ${action}\n`, region);
+    sendAction (action) {
+        this.clear();
+        this.send(`${action}\n`);
     }
 
     initWebSocket (session, term) {
         const self = this;
         const defer = this.$q.defer();
+        let pingTimer;
         this.ws = new WebSocket(session.websocket);
         this.ws.onopen = () => {
+            self.ws.opened = true;
+            pingTimer = setInterval(ws => ws.send("1"), 30 * 1000, self.ws);
             defer.resolve(session);
         };
 
@@ -47,43 +47,49 @@ class CloudProjectComputeInfrastructureOpenstackClientService {
                 case "0":
                     term.io.writeUTF8(atob(data));
                     break;
-                case "1":
-                    // pong
-                    break;
-                case "2":
-                    // Object.keys(JSON.parse(data)).forEach(key => {
-                    //     console.log(`Term preferences, setting ${key} = ${preferences[key]}`);
-                    // });
-                    break;
-                case "3":
-                    // var autoReconnect = JSON.parse(data);
-                    // console.log(`Enabling term reconnect: ${autoReconnect} seconds`);
-                    break;
                 default :break;
             }
         };
 
         this.ws.onclose = function () {
+            if (pingTimer) {
+                clearInterval(pingTimer)
+            }
             defer.reject();
             self.ServiceHelper.errorHandler("cpci_openstack_client_socket_closed");
         };
         return defer.promise;
     }
 
-    send (data, region) {
-        if (!this.ws) {
+    send (data) {
+        if (!this.wsReady()) {
             return;
-        }
-        if (region && region !== this.REGION_ALL) {
-            this.ws.send(`0OS_REGION_NAME=${region} `);
         }
         this.ws.send(`0${data}`);
     }
 
-    setConfig (config) {
-        if (this.ws) {
-            this.ws.send(`2${JSON.stringify(config)}`);
+    clear () {
+        // to clear the line before sending data
+        this.ws.send("0\x15\x0b")
+    }
+
+    setRegion (region) {
+        if (!this.wsReady()) {
+            return;
         }
+        this.clear();
+        this.send(`export OS_REGION_NAME=${region}\n`);
+    }
+
+    setConfig (config) {
+        if (!this.wsReady()) {
+            return;
+        }
+        this.ws.send(`2${JSON.stringify(config)}`);
+    }
+
+    wsReady() {
+        return this.ws && this.ws.opened;
     }
 
 }
