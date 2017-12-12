@@ -2,7 +2,7 @@ angular.module("managerApp")
     .directive("cuiTileItemStatus", () => ({
         replace: true,
         restrict: "E",
-        controller: class CuiTileItemStatusCtrl {
+        controller: class {
             constructor ($element) {
                 this.$element = $element;
             }
@@ -39,7 +39,7 @@ angular.module("managerApp")
         replace: true,
         restrict: "E",
         controllerAs: "$ctrl",
-        controller: class CuiTileDefinitionTermCtrl {},
+        controller: class {},
         scope: true,
         template: `
             <dt class="cui-tile-item-status__term" data-ng-bind="$ctrl.term"></dt>`,
@@ -51,7 +51,7 @@ angular.module("managerApp")
         replace: true,
         restrict: "E",
         controllerAs: "$ctrl",
-        controller: class CuiTileDefinitionDescriptionCtrl {},
+        controller: class {},
         scope: true,
         transclude: true,
         template: `
