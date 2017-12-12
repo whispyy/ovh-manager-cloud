@@ -51,13 +51,19 @@ class CloudProjectComputeInfrastructureOpenstackClientService {
             }
         };
 
-        this.ws.onclose = function () {
+        this.ws.onclose = () => {
             if (pingTimer) {
                 clearInterval(pingTimer)
             }
             defer.reject();
-            self.ServiceHelper.errorHandler("cpci_openstack_client_socket_closed");
+            self.ServiceHelper.errorHandler("cpci_openstack_client_socket_closed")();
         };
+
+        this.ws.onerror = err => {
+            defer.reject(err);
+            self.ServiceHelper.errorHandler("cpci_openstack_client_session_error")(err);
+        }
+
         return defer.promise;
     }
 

@@ -58,17 +58,19 @@ class CloudProjectComputeInfrastructureOpenstackClientCtrl {
         }
     }
 
-    minimize () {
+    minimize ($event) {
         this.minimized = !this.minimized;
         this.maximized = false;
         this.savePrefs();
+        $event && $event.stopPropagation();
     }
 
-    maximize () {
+    maximize ($event) {
         this.maximized = !this.maximized;
         this.minimized = false;
         this.load();
         this.savePrefs();
+        $event && $event.stopPropagation();
     }
 
     load () {
@@ -76,12 +78,11 @@ class CloudProjectComputeInfrastructureOpenstackClientCtrl {
             return;
         }
 
+        // No cache as it's POST
         if (!this.session.loading && (this.session.hasErrors || _.isEmpty(this.session.data))) {
             this.session.load();
         }
-        if (!this.regions.loading && (this.regions.hasErrors || _.isEmpty(this.regions.data))) {
-            this.regions.load();
-        }
+        this.regions.load();
     }
     savePrefs () {
         sessionStorage.setItem("CloudProjectComputeInfrastructureOpenstackClientCtrl.minimized", this.minimized);
