@@ -65,7 +65,7 @@
    <translation id="iplb_status_warning_frontends">{{activeCount}} sur {{totalCount}} en avertissement</translation>
    <translation id="iplb_status_help_frontends">{{activeCount}} sur {{totalCount}} sans information</translation>
 
-   <translation id="iplb_status_success_farms">{{activeCount}} sur {{totalCount}} fonctionnelles</translation>
+   <translation id="iplb_status_success_farms">{{activeCount}} sur {{totalCount}} actives</translation>
    <translation id="iplb_status_error_farms">{{activeCount}} sur {{totalCount}} en erreur</translation>
    <translation id="iplb_status_warning_farms">{{activeCount}} sur {{totalCount}} en avertissement</translation>
    <translation id="iplb_status_help_farms">{{activeCount}} sur {{totalCount}} sans information</translation>
