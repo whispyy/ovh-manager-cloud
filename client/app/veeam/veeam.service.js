@@ -151,6 +151,15 @@
                 .catch(response => this.rejectResponse(response, this.$translate.instant("veeam_add_repository_error")));
         }
 
+        deleteBackupRepository (serviceName, inventoryName) {
+            return this.veeam.deleteInventory({
+                serviceName,
+                inventoryName
+            }, {}).$promise
+                .then(response => this.acceptResponse(response, this.$translate.instant("veeam_delete_repository_error")))
+                .catch(response => this.rejectResponse(response, this.$translate.instant("veeam_delete_repository_success")));
+        }
+
         updateRepositoryQuota (serviceName, inventoryName, newQuota) {
             return this.veeam.upgradeQuota({
                 serviceName,
@@ -196,6 +205,9 @@
 
                 return this.acceptResponse({
                     addStorage,
+                    deleteStorage: {
+                        available: true
+                    },
                     manageBilling: {
                         available: true
                     },

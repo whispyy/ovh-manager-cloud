@@ -56,6 +56,29 @@
             }
         }
 
+        deleteStorage (inventoryName) {
+            if (this.actions.data.deleteStorage.available) {
+                this.ControllerHelper.modal.showConfirmationModal({
+                    titleText: "Supprimer le Storage space",
+                    text: "Êtes-vous sûr de vouloir supprimer le storage space?"
+                })
+                    .then(result => {
+                        this.VeeamService.deleteBackupRepository(this.$stateParams.serviceName, inventoryName)
+                            .then(() => this.VeeamService.startPolling(this.$stateParams.serviceName, result.data))
+                            .then(this.storageInfos.load.bind(this));
+                    })
+                    .catch(err => this.VeeamService.unitOfWork.messages.push({
+                        text: err.message,
+                        type: "error"
+                    }));
+            } else {
+                this.ControllerHelper.modal.showWarningModal({
+                    title: this.$translate.instant("common_action_unavailable"),
+                    message: this.actions.data.addStorage.reason
+                });
+            }
+        }
+
         updateQuota (inventoryName) {
             this.ControllerHelper.modal.showModal({
                 modalConfig: {

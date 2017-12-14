@@ -65,6 +65,14 @@
                                         data-translate="veeam_storage_update_title"
                                         data-ng-click="VeeamStorageCtrl.updateQuota(storage.inventoryName)"></button>
                                   </div>
+                                  <div class="oui-action-menu__item oui-action-menu-item">
+                                    <div class="oui-action-menu-item__icon"></div>
+                                    <button class="oui-button oui-button_link oui-action-menu-item__label"
+                                        type="button"
+                                        data-ng-if="!VeeamStorageCtrl.capabilities.loading"
+                                        data-translate="common_delete"
+                                        data-ng-click="VeeamStorageCtrl.deleteStorage(storage.inventoryName)"></button>
+                                  </div>
                                 </div>
                             </cui-dropdown-menu-body>
                         </cui-dropdown-menu>

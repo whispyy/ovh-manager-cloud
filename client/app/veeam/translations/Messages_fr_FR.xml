@@ -13,6 +13,8 @@
    <translation id="veeam_add_repository_pending" qtlid="403892">La création de votre espace de stockage est en cours.</translation>
    <translation id="veeam_add_repository_error" qtlid="403905">Erreur lors de la création de votre espace de stockage.</translation>
    <translation id="veeam_add_repository_success" qtlid="403918">Votre espace de stockage a été créé.</translation>
+   <translation id="veeam_delete_repository_error" qtlid="403905">Erreur lors de la suppression de votre espace de stockage.</translation>
+   <translation id="veeam_delete_repository_success" qtlid="403918">Votre espace de stockage a été supprimé.</translation>
    <translation id="veeam_update_offer_post_error" qtlid="403879">Erreur lors de la création du bon de commande.</translation>
    <translation id="veeam_infos_subscription_renew_manual_description" qtlid="219797">Manuel</translation>
    <translation id="veeam_infos_subscription_renew_automatic_description" qtlid="134215">Automatique</translation>
